@@ -11,7 +11,6 @@ import PrivateRoute from './components/PrivateRoute';
 import AnonRoute from './components/AnonRoute'; 
 import ProfileHost from './pages/ProfileHost';
 import ProfileMusician from './pages/ProfileMusician';
-
 function App() {
 	return (
 		<div className="App">

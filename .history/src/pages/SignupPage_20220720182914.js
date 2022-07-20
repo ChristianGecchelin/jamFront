@@ -45,10 +45,10 @@ function SignupPage(props) {
 				<label>Username:</label>
 				<input type="text" name="username" value={username} onChange={handleUsername} />
 				<label>Type:</label>
-				<select value={type} onChange={handleType}>
+				<select name="type" id="type" onChange={handleType}  >
 				<option value="host">Host</option>
   				<option value="musician">Musician</option>
-				</select>
+				  </select>
 				<button type="submit">Sign Up</button>
 			</form>
 

@@ -7,19 +7,17 @@ function SignupPage(props) {
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
 	const [ username, setUsername ] = useState('');
-	const [ type, setType ] = useState('');
 	const navigate = useNavigate();
 	const [ errorMessage, setErrorMessage ] = useState(undefined);
 
 	const handleEmail = (e) => setEmail(e.target.value);
 	const handlePassword = (e) => setPassword(e.target.value);
 	const handleUsername = (e) => setUsername(e.target.value);
-	const handleType = (e) => setType(e.target.value);
 
 	const handleSignupSubmit = async (e) => {
 		e.preventDefault();
 		// Create an object representing the request body
-		const requestBody = { email, password, username,type };
+		const requestBody = { email, password, username };
     try{
       await signupService(requestBody);
       navigate("/login");
@@ -45,10 +43,10 @@ function SignupPage(props) {
 				<label>Username:</label>
 				<input type="text" name="username" value={username} onChange={handleUsername} />
 				<label>Type:</label>
-				<select value={type} onChange={handleType}>
-				<option value="host">Host</option>
-  				<option value="musician">Musician</option>
-				</select>
+				<select name="type" id="type"></select>
+				<option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+
 				<button type="submit">Sign Up</button>
 			</form>
 

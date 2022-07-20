@@ -4,13 +4,11 @@ import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import ProjectListPage from './pages/ProjectListPage';
 import ProjectDetailsPage from './pages/ProjectDetailsPage';
-import MapPage from './pages/MapPage';
+
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import PrivateRoute from './components/PrivateRoute'; 
 import AnonRoute from './components/AnonRoute'; 
-import ProfileHost from './pages/ProfileHost';
-import ProfileMusician from './pages/ProfileMusician';
 
 function App() {
 	return (
@@ -21,18 +19,10 @@ function App() {
 				<Route exact path="/" component={HomePage} />
 				<Route
 					exact
-					path="/map"
-					element={
-							<MapPage />
-					}
-				/>
-				<Route
-					exact
-					path="/profile"
+					path="/projects"
 					element={
 						<PrivateRoute>
-							{user.type==='host'?<ProfileHost />:
-							<ProfileMusician/>}
+							<ProjectListPage />
 						</PrivateRoute>
 					}
 				/>

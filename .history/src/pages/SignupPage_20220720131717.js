@@ -6,20 +6,18 @@ import { signupService } from '../services/auth.services';
 function SignupPage(props) {
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
-	const [ username, setUsername ] = useState('');
-	const [ type, setType ] = useState('');
-	const navigate = useNavigate();
+	const [ name, setName ] = useState('');
+  const navigate = useNavigate();
 	const [ errorMessage, setErrorMessage ] = useState(undefined);
 
 	const handleEmail = (e) => setEmail(e.target.value);
 	const handlePassword = (e) => setPassword(e.target.value);
-	const handleUsername = (e) => setUsername(e.target.value);
-	const handleType = (e) => setType(e.target.value);
+	const handleName = (e) => setName(e.target.value);
 
 	const handleSignupSubmit = async (e) => {
 		e.preventDefault();
 		// Create an object representing the request body
-		const requestBody = { email, password, username,type };
+		const requestBody = { email, password, name };
     try{
       await signupService(requestBody);
       navigate("/login");
@@ -42,13 +40,9 @@ function SignupPage(props) {
 				<label>Password:</label>
 				<input type="password" name="password" value={password} onChange={handlePassword} />
 
-				<label>Username:</label>
-				<input type="text" name="username" value={username} onChange={handleUsername} />
-				<label>Type:</label>
-				<select value={type} onChange={handleType}>
-				<option value="host">Host</option>
-  				<option value="musician">Musician</option>
-				</select>
+				<label>Name:</label>
+				<input type="text" name="name" value={name} onChange={handleName} />
+
 				<button type="submit">Sign Up</button>
 			</form>
 

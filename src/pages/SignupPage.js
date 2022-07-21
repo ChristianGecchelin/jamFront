@@ -21,15 +21,15 @@ function SignupPage(props) {
 		// Create an object representing the request body
 		const requestBody = { email, password, username,type };
     try{
-      await signupService(requestBody);
-      navigate("/login");
+    	await signupService(requestBody);
+    	navigate("/login");
     }catch(err){
-      if(err.response?.status === 400){
+    	if(err.response?.status === 400){
         setErrorMessage(err.response.data.errorMessage);
         console.log(errorMessage);
-      }
+    	}
     }
-  };
+};
 
 	return (
 		<div className="SignupPage">

@@ -1,7 +1,7 @@
 const ProfileMusician = () => {
     return ( <div>
-        <h2>Bienvenido User</h2>
-        <form onSubmit=''>
+        <h2>Bienvenido Musician</h2>
+        {/*<form onSubmit=''>
 				<label>Pick your instrument</label>
                 <select value={type} onChange={handleType}>
 				{instruments.map((instrument)=>{
@@ -9,8 +9,8 @@ const ProfileMusician = () => {
                 }
 				</select>
 				<button type="submit">Select your instrument</button>
-                </form>
-                <p>Your ratings of participation are: {user.participationRating}</p>
+                </form>*/}
+                {/*<p>Your ratings of participation are: {user.participationRating}</p>*/}
     </div> );
 }
  

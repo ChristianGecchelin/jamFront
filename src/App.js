@@ -1,5 +1,6 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
+import { useContext } from "react";
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import ProjectListPage from './pages/ProjectListPage';
@@ -9,10 +10,13 @@ import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import PrivateRoute from './components/PrivateRoute'; 
 import AnonRoute from './components/AnonRoute'; 
+import {AuthContext} from './context/auth.context'
 import ProfileHost from './pages/ProfileHost';
 import ProfileMusician from './pages/ProfileMusician';
 
 function App() {
+	const {user} = useContext(AuthContext)
+	
 	return (
 		<div className="App">
 			<Navbar />
@@ -26,16 +30,16 @@ function App() {
 							<MapPage />
 					}
 				/>
-				<Route
+				{user && <Route
 					exact
-					path="/profile/:userid"
+					path="/profile/"
 					element={
 						<PrivateRoute>
 							{user.type==='host'?<ProfileHost />:
 							<ProfileMusician/>}
 						</PrivateRoute>
 					}
-				/>
+				/>}
 
 				<Route
 					exact

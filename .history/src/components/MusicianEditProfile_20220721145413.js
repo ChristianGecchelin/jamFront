@@ -36,8 +36,7 @@ const MusicianEditProfile = () => {
             <button onClick={(event)=>{
                 handleToggle(event)
             }}>Editar Contraseña</button>
-            {!passwordView &&
-            <div>
+            {passwordView&&<div>
                 <label for="">Password Anterior</label><input type="password"/>
                 <label for="">Password Nueva</label><input type="password"/>
                 <label for="">Repite Password</label><input type="password"/>{/*escribir funcion para verificar password iguales, sino renderizar un span error*/}

@@ -2,8 +2,7 @@ import { useState } from "react"
 const MusicianEditProfile = () => {
     const [passwordView,setPasswordView]=useState('false')
     const instruments = ['Guitar','Drums','Bass','Piano','Singer','Harmonica','Saxophone','Trumpet']
-    const handleToggle=(event)=>{
-        event.preventDefault()
+    const handleToggle=()=>{
         setPasswordView(!passwordView)
     }
     return ( 
@@ -33,11 +32,10 @@ const MusicianEditProfile = () => {
             </ul>
             <label for="">Usuario</label>
             <input type="text"/>
-            <button onClick={(event)=>{
-                handleToggle(event)
-            }}>Editar Contraseña</button>
-            {!passwordView &&
-            <div>
+            <button onClick={()=>{
+                handleToggle()
+            }}>Editar</button>
+            {passwordView&&<div>
                 <label for="">Password Anterior</label><input type="password"/>
                 <label for="">Password Nueva</label><input type="password"/>
                 <label for="">Repite Password</label><input type="password"/>{/*escribir funcion para verificar password iguales, sino renderizar un span error*/}

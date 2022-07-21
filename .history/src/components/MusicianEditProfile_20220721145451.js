@@ -36,7 +36,7 @@ const MusicianEditProfile = () => {
             <button onClick={(event)=>{
                 handleToggle(event)
             }}>Editar Contraseña</button>
-            {!passwordView &&
+            {passwordView&&
             <div>
                 <label for="">Password Anterior</label><input type="password"/>
                 <label for="">Password Nueva</label><input type="password"/>

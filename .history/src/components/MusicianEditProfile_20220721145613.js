@@ -1,6 +1,6 @@
 import { useState } from "react"
 const MusicianEditProfile = () => {
-    const [passwordView,setPasswordView]=useState('false')
+    const [passwordView,setPasswordView]=useState('true')
     const instruments = ['Guitar','Drums','Bass','Piano','Singer','Harmonica','Saxophone','Trumpet']
     const handleToggle=(event)=>{
         event.preventDefault()

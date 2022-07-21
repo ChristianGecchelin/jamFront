@@ -10,8 +10,8 @@ import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import PrivateRoute from './components/PrivateRoute'; 
 import AnonRoute from './components/AnonRoute'; 
-import ProfileHost from './pages/ProfileHost/ProfileHost';
-import ProfileMusician from './pages/ProfileMusician/ProfileMusician';
+import ProfileHost from './pages/ProfileHost';
+import ProfileMusician from './pages/ProfileMusician/index';
 import {AuthContext} from './context/auth.context'
 function App() {
 	const{user}=useContext(AuthContext)

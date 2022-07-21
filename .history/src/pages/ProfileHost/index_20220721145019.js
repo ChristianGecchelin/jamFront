@@ -1,14 +1,16 @@
 import { useState,useContext } from "react";
-import {AuthContext} from '../context/auth.context'
-import MusicianProfileView from "../components/MusicianProfileView";
-import MusicianEditProfile from "../components/MusicianEditProfile";
-const ProfileMusician = () => {
+import './ProfileHost.css'
+import {AuthContext} from '../../context/auth.context'
+import HostProfileView from "../../components/HostProfileView";
+import HostEditProfile from "../../components/HostEditProfile";
+const ProfileHost = () => {
     const{user}=useContext(AuthContext)
     const[editView,setEditView]=useState('false')
     const handleToggle=()=>{
          setEditView(!editView)
     }
-    return ( <section>
+    return ( 
+        <section className="profile-section">
         <div className="personalInfo-container">
             <img src="" alt=""/>
             <h2>Bienvenido {user.name}</h2>
@@ -16,10 +18,10 @@ const ProfileMusician = () => {
             <p>Mi rating:</p>{/*o places*/}
             <button onClick={()=>{handleToggle()}}>Editar</button> {/*setear toggle*/}
         </div>
-        <div >
-        {editView==='false'? <MusicianProfileView/>: <MusicianEditProfile/>}
+        <div className="profileInfo-container">
+        {editView==='false'? <HostProfileView/>: <HostEditProfile/>}
         </div>
     </section> );
 }
  
-export default ProfileMusician;
+export default ProfileHost;

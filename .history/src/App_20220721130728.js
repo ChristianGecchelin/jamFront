@@ -12,9 +12,8 @@ import PrivateRoute from './components/PrivateRoute';
 import AnonRoute from './components/AnonRoute'; 
 import ProfileHost from './pages/ProfileHost';
 import ProfileMusician from './pages/ProfileMusician';
-import {AuthContext} from './context/auth.context'
+
 function App() {
-	const{user}=useContext(AuthContext)
 	return (
 		<div className="App">
 			<Navbar />
@@ -28,7 +27,7 @@ function App() {
 							<MapPage />
 					}
 				/>
-				{user&&<Route
+				<Route
 					exact
 					path="/profile/:userid"
 					element={
@@ -37,8 +36,7 @@ function App() {
 							<ProfileMusician/>}
 						</PrivateRoute>
 					}
-				/>}
-				
+				/>
 
 				<Route
 					exact

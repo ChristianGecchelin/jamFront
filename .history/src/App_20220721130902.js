@@ -28,7 +28,7 @@ function App() {
 							<MapPage />
 					}
 				/>
-				{user&&<Route
+				<Route
 					exact
 					path="/profile/:userid"
 					element={
@@ -37,8 +37,7 @@ function App() {
 							<ProfileMusician/>}
 						</PrivateRoute>
 					}
-				/>}
-				
+				/>
 
 				<Route
 					exact

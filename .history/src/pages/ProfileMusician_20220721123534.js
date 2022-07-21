@@ -1,7 +1,5 @@
 import { useState,useContext } from "react";
 import {AuthContext} from '../context/auth.context'
-import MusicianProfileView from "../components/MusicianProfileView";
-import MusicianEditProfile from "../components/MusicianEditProfile";
 const ProfileMusician = () => {
     const{user}=useContext(AuthContext)
     const[editView,setEditView]=useState('false')
@@ -9,15 +7,14 @@ const ProfileMusician = () => {
          setEditView(!editView)
     }
     return ( <section>
-        <div className="personalInfo-container">
+        <div className="info-container">
             <img src="" alt=""/>
-            <h2>Bienvenido {user.name}</h2>
             <h3>Mis instrumentos</h3>
             <p>Mi rating:</p>{/*o places*/}
             <button onClick={()=>{handleToggle()}}>Editar</button> {/*setear toggle*/}
         </div>
-        <div >
-        {editView==='false'? <MusicianProfileView/>: <MusicianEditProfile/>}
+        <div className="profile-form">
+
         </div>
     </section> );
 }

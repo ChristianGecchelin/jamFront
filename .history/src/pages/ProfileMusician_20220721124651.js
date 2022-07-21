@@ -16,9 +16,8 @@ const ProfileMusician = () => {
             <p>Mi rating:</p>{/*o places*/}
             <button onClick={()=>{handleToggle()}}>Editar</button> {/*setear toggle*/}
         </div>
-        <div >
         {editView==='false'? <MusicianProfileView/>: <MusicianEditProfile/>}
-        </div>
+        
     </section> );
 }
  

@@ -16,7 +16,7 @@ const ProfileHost = () => {
         <div className="personalInfo-container">
             <img src={profileImage} alt=""/>
             <h2>Bienvenido {user.name}</h2>
-            <Link to='/newPlace'>Agrega tu place</Link>
+            <Link>Agrega tu place</Link>
             <p>Mi rating:</p>{/*o places*/}
             <button onClick={()=>{handleToggle()}}>Editar</button> {/*setear toggle*/}
         </div>

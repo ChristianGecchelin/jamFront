@@ -1,5 +1,4 @@
 import { useState } from "react"
-import './HostEditProfile.css'
 const HostEditProfile = (props) => {
     const {user}=props
     const [newUser,setNewUser]=useState(user.username)
@@ -13,17 +12,27 @@ const HostEditProfile = (props) => {
         setNewUser(e.target.value);
       };
     return ( 
-        <form action="" className="form-edit-profile">
+        <form action="">
             <label >Acerca de mí</label>
             <textarea name="" id="" cols="30" rows="10"></textarea>
             <label >Foto de Perfil</label>
             <input type="text" name="" id=""/>
-            <label >Lista de places</label>
+            <label >Añade instrumentos</label>
             <ul className="instrument-list">
                 {discos.map((disco) => {
                      return (
                         <li key={disco}>
-                        <p className="list-places">{disco}</p>
+                        <div className="instrument-list-item">
+                        <label htmlFor={disco}>{disco}</label>
+                            <input
+                             type="checkbox"
+                             id={disco}
+                             name={disco}
+                             value={disco}
+                            />
+                            
+                       
+                        </div>
                          </li> );
                 })}
             </ul>

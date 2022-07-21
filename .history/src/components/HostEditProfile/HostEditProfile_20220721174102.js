@@ -1,34 +1,40 @@
 import { useState } from "react"
-import './HostEditProfile.css'
 const HostEditProfile = (props) => {
     const {user}=props
-    const [newUser,setNewUser]=useState(user.username)
     const [passwordView,setPasswordView]=useState(false)
-    const discos = ['Razz','Input','Opium','Bling Bling','Wolf','Pacha','Sutton','LaFira']
+    const instruments = ['Guitar','Drums','Bass','Piano','Singer','Harmonica','Saxophone','Trumpet']
     const handleToggle=(event)=>{
         event.preventDefault()
         setPasswordView(!passwordView)
     }
-    const handlerUsernameInput = (e) => {
-        setNewUser(e.target.value);
-      };
+    console.log(user)
     return ( 
-        <form action="" className="form-edit-profile">
+        <form action="">
             <label >Acerca de mí</label>
             <textarea name="" id="" cols="30" rows="10"></textarea>
             <label >Foto de Perfil</label>
             <input type="text" name="" id=""/>
-            <label >Lista de places</label>
+            <label >Añade instrumentos</label>
             <ul className="instrument-list">
-                {discos.map((disco) => {
+                {instruments.map((instrument) => {
                      return (
-                        <li key={disco}>
-                        <p className="list-places">{disco}</p>
+                        <li key={instrument}>
+                        <div className="instrument-list-item">
+                        <label htmlFor={instrument}>{instrument}</label>
+                            <input
+                             type="checkbox"
+                             id={instrument}
+                             name={instrument}
+                             value={instrument}
+                            />
+                            
+                       
+                        </div>
                          </li> );
                 })}
             </ul>
             <label >Usuario</label>
-            <input value={newUser} onChange={(e) => handlerUsernameInput(e)} type="text"/>
+            <input value={user.name} type="text"/>
             <button onClick={(event)=>{
                 handleToggle(event)
             }}>Editar Contraseña</button>

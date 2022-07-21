@@ -13,16 +13,10 @@
   justify-content: flex-start;
   align-items: center;
   height: 100vh;
-  min-width: 300px;
 }
 .personalInfo-container {
   width: 30%;
 }
 .profileInfo-container {
   width: 60%;
-}
-.personalInfo-container img {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
 }

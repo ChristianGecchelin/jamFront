@@ -12,8 +12,7 @@ import PrivateRoute from './components/PrivateRoute';
 import AnonRoute from './components/AnonRoute'; 
 import ProfileHost from './pages/ProfileHost/ProfileHost';
 import ProfileMusician from './pages/ProfileMusician/ProfileMusician';
-import {AuthContext} from './context/auth.context';
-import NewPlace from './pages/NewPlace/NewPlace'
+import {AuthContext} from './context/auth.context'
 function App() {
 	const{user}=useContext(AuthContext)
 	return (
@@ -71,16 +70,16 @@ function App() {
 					}
 				/>}
 
-				<Route
+<Route
 					exact
-					path="/newPlace"
+					path="/projects/:id"
 					element={
 						<PrivateRoute>
-							<NewPlace />
+							<ProjectDetailsPage />
 						</PrivateRoute>
 					}
 				/>
-				</Routes>
+			</Routes>
 		</div>
 	);
 }

@@ -13,7 +13,7 @@ const HostEditProfile = (props) => {
         setNewUser(e.target.value);
       };
     return ( 
-        <form action="" className="form-edit-profile">
+        <form action="">
             <label >Acerca de mí</label>
             <textarea name="" id="" cols="30" rows="10"></textarea>
             <label >Foto de Perfil</label>

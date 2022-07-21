@@ -2,7 +2,7 @@ import { useState,useContext } from "react";
 import './ProfileMusician.css';
 import perfilImage from '../../assets/perfil.jpg'
 import {AuthContext} from '../../context/auth.context'
-import MusicianProfileView from "../../components/MusicianProfileView/MusicianProfileView";
+import MusicianProfileView from "../../components/MusicianProfileView";
 import MusicianEditProfile from "../../components/MusicianEditProfile/MusicianEditProfile";
 const ProfileMusician = () => {
     const{user}=useContext(AuthContext)

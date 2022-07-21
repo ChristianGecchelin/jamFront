@@ -1,8 +1,8 @@
 import { useState,useContext } from "react";
 import './ProfileHost.css';
 import {AuthContext} from '../../context/auth.context';
-import HostProfileView from "../../components/HostProfileView/HostProfileView";
-import HostEditProfile from "../../components/HostEditProfile/HostEditProfile";
+import HostProfileView from "../../components/HostProfileView";
+import HostEditProfile from "../../components/HostEditProfile";
 const ProfileHost = () => {
     const{user}=useContext(AuthContext)
     const[editView,setEditView]=useState('false')

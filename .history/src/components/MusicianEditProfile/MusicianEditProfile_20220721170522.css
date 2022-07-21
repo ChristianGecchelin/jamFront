@@ -1,0 +1,43 @@
+ul {
+  list-style: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+ul li {
+  width: 100%;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  text-align: left;
+  min-width: 300px;
+}
+form label {
+  font-weight: 700;
+}
+.instrument-list {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+}
+.instrument-list-item {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  justify-content: space-between;
+  background-color: gray;
+  border: 2px solid black;
+}
+.instrument-list label {
+  margin-left: 50px;
+}
+.instrument-list input {
+  margin-right: 100px;
+}
+.changePassword-container {
+  display: flex;
+  flex-direction: column;
+}

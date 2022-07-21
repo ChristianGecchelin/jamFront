@@ -1,0 +1,15 @@
+ul {
+  list-style: none;
+}
+.instrument-list {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+.instrument-list-item {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+}

@@ -1,0 +1,28 @@
+ul {
+  list-style: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+ul li {
+  width: 100%;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.instrument-list {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+.instrument-list-item {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  background-color: gray;
+  border: 2px solid black;
+}

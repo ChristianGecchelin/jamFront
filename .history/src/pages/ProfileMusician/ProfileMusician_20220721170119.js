@@ -1,8 +1,7 @@
 import { useState,useContext } from "react";
-import './ProfileMusician.css';
-import perfilImage from '../../assets/perfil.jpg'
+import './ProfileMusician.css'
 import {AuthContext} from '../../context/auth.context'
-import MusicianProfileView from "../../components/MusicianProfileView/MusicianProfileView";
+import MusicianProfileView from "../../components/MusicianProfileView";
 import MusicianEditProfile from "../../components/MusicianEditProfile/MusicianEditProfile";
 const ProfileMusician = () => {
     const{user}=useContext(AuthContext)
@@ -10,9 +9,10 @@ const ProfileMusician = () => {
     const handleToggle=()=>{
          setEditView(!editView)
     }
+    console.log(editView)
     return ( <section className="profile-section">
         <div className="personalInfo-container">
-            <img src={perfilImage} alt="perfilImage"/>
+            <img src="" alt=""/>
             <h2>Bienvenido {user.name}</h2>
             <h3>Mis instrumentos</h3>
             <p>Mi rating:</p>{/*o places*/}

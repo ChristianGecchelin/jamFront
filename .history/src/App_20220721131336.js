@@ -10,12 +10,11 @@ import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import PrivateRoute from './components/PrivateRoute'; 
 import AnonRoute from './components/AnonRoute'; 
-import {AuthContext} from './context/auth.context'
 import ProfileHost from './pages/ProfileHost';
 import ProfileMusician from './pages/ProfileMusician';
+import {AuthContext} from './context/auth.context'
 function App() {
-	const {user} = useContext(AuthContext)
-	
+	const{user}=useContext(AuthContext)
 	return (
 		<div className="App">
 			<Navbar />
@@ -29,9 +28,9 @@ function App() {
 							<MapPage />
 					}
 				/>
-				{user && <Route
+				{user&&<Route
 					exact
-					path="/profile/"
+					path="/profile/:userid"
 					element={
 						<PrivateRoute>
 							{user.type==='host'?<ProfileHost />:
@@ -39,6 +38,7 @@ function App() {
 						</PrivateRoute>
 					}
 				/>}
+				
 
 				<Route
 					exact

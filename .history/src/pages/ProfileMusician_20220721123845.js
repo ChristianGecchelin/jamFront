@@ -1,7 +1,5 @@
 import { useState,useContext } from "react";
 import {AuthContext} from '../context/auth.context'
-import MusicianProfileView from "../components/MusicianProfileView";
-import MusicianEditProfile from "../components/MusicianEditProfile";
 const ProfileMusician = () => {
     const{user}=useContext(AuthContext)
     const[editView,setEditView]=useState('false')
@@ -16,8 +14,15 @@ const ProfileMusician = () => {
             <p>Mi rating:</p>{/*o places*/}
             <button onClick={()=>{handleToggle()}}>Editar</button> {/*setear toggle*/}
         </div>
-        <div >
-        {editView==='false'? <MusicianProfileView/>: <MusicianEditProfile/>}
+        <div className="variableProfile-container">
+            <div className="row-cards-container">
+                <h3>Mis proximos eventos</h3>
+                <div>
+                    <img src="" alt=""><img src="" alt=""><img src="" alt=""><img src="" alt="">
+                </div>
+            </div>
+            <div></div>
+            <div></div>
         </div>
     </section> );
 }

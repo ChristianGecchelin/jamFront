@@ -1,0 +1,28 @@
+.profile-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.personalInfo-container,
+.profileInfo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  min-width: 300px;
+}
+.personalInfo-container {
+  width: 30%;
+}
+.profileInfo-container {
+  width: 60%;
+}
+.personalInfo-container img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}

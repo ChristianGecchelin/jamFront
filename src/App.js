@@ -13,12 +13,42 @@ import AnonRoute from './components/AnonRoute';
 import {AuthContext} from './context/auth.context'
 import ProfileHost from './pages/ProfileHost';
 import ProfileMusician from './pages/ProfileMusician';
+import CreateJam from './components/CreateJam';
+
+//MATERIAL UI
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Box } from '@mui/material';
+const customTheme = createTheme({
+	//Color settings
+	palette:{
+		primary:{
+			main:"#263238",
+			light:"#4f5b62",
+			dark:"#000a12",
+			contrastText:"#ffffff"
+		},
+		secondary:{
+			main:"#b2dfdb",
+			light:"#e5ffff",
+			dark:"#82ada9",
+			contrastText:"#263238"
+		},
+		text:{
+			main:"#82ada9",
+			primary:"#ffffff",
+			secondary:"#263238"
+		}
+	},
+	bgcolor: 'primary.main'
+})
+
 function App() {
 	const {user} = useContext(AuthContext)
 	
 	return (
-		<div className="App">
-			<Navbar />
+		
+		<ThemeProvider theme={customTheme}>
+			<Navbar/>
 
 			<Routes>
 				<Route exact path="/" component={HomePage} />
@@ -42,10 +72,10 @@ function App() {
 
 				<Route
 					exact
-					path="/projects/:id"
+					path="/jams"
 					element={
 						<PrivateRoute>
-							<ProjectDetailsPage />
+							<CreateJam />
 						</PrivateRoute>
 					}
 				/>
@@ -70,7 +100,7 @@ function App() {
 					}
 				/>
 			</Routes>
-		</div>
+		</ThemeProvider>	
 	);
 }
 

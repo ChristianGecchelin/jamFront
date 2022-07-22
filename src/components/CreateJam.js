@@ -31,7 +31,6 @@ function CreateJam () {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(categories)
         const requestBody = {name, date, description, limit, categories}
         axios
         .post(`${API_URL}/api/jams`, requestBody)

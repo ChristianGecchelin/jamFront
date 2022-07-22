@@ -13,6 +13,9 @@ import ProfileMusician from './pages/ProfileMusician/ProfileMusician';
 import {AuthContext} from './context/auth.context';
 import NewPlace from './pages/NewPlace/NewPlace'
 import CreateJam from './components/CreateJam';
+import JamListPage from './pages/JamListPage/JamListPage';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 //MATERIAL UI
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -47,6 +50,7 @@ function App() {
 	return (
 		
 		<ThemeProvider theme={customTheme}>
+		<MuiPickersUtilsProvider utils={DateFnsUtils}>
 			<Navbar/>
 
 			<Routes>
@@ -63,9 +67,9 @@ function App() {
 					exact
 					path="/jams"
 					element={
-						<PrivateRoute>
-							<CreateJam />
-						</PrivateRoute>
+						
+							<JamListPage />
+						
 					}
 				/>
 
@@ -111,7 +115,9 @@ function App() {
 					}
 				/>
 				</Routes>
+			</MuiPickersUtilsProvider>		
 		</ThemeProvider>
+		
 	);
 }
 

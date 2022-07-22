@@ -19,7 +19,7 @@ function Navbar() {
               <button>Projects</button>
             </Link>
             <button onClick={logOutUser}>Logout</button>
-            <span>{user.name}</span>
+            <span>{user._id}</span>
           </>)
         : 
         (<>

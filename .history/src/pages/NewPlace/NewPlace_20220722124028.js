@@ -14,12 +14,12 @@ const NewPlace = () => {
   const handleLongInput = (e) => setLong(e.target.value);
   const handleLatInput = (e) => setLat(e.target.value);
   const handlePhotoInput = (e) => setPhoto(e.target.value);
-const handleAddressInput =(e)=>setAddress(e.target.value)
+
   const handleNewPlaceSubmit = async (e) => {
     e.preventDefault();
     const coordinates = [lat, long];
     // Create an object representing the request body
-    const requestBody = { name:namePlace, coordinates, photo,userId, address };
+    const requestBody = { name:namePlace, coordinates, photo,userId };
     console.log(requestBody)
     try {
       await axios.post(`${API_URL}/places`, requestBody).then((response) => {
@@ -28,7 +28,6 @@ const handleAddressInput =(e)=>setAddress(e.target.value)
         setLong("");
         setLat("");
         setPhoto("");
-        setAddress("")
       });
     } catch (error) {
       console.log(error);

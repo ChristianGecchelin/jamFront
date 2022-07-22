@@ -7,19 +7,17 @@ const NewPlace = () => {
   const [long, setLong] = useState("");
   const [lat, setLat] = useState("");
   const [photo, setPhoto] = useState("");
-  const [address,setAddress]=useState('')
   const { user } = useContext(AuthContext);
-  const userId=user._id
   const handleNamePlaceInput = (e) => setNamePlace(e.target.value);
   const handleLongInput = (e) => setLong(e.target.value);
   const handleLatInput = (e) => setLat(e.target.value);
   const handlePhotoInput = (e) => setPhoto(e.target.value);
-const handleAddressInput =(e)=>setAddress(e.target.value)
+
   const handleNewPlaceSubmit = async (e) => {
     e.preventDefault();
     const coordinates = [lat, long];
     // Create an object representing the request body
-    const requestBody = { name:namePlace, coordinates, photo,userId, address };
+    const requestBody = { name:namePlace, coordinates, photo };
     console.log(requestBody)
     try {
       await axios.post(`${API_URL}/places`, requestBody).then((response) => {
@@ -28,7 +26,6 @@ const handleAddressInput =(e)=>setAddress(e.target.value)
         setLong("");
         setLat("");
         setPhoto("");
-        setAddress("")
       });
     } catch (error) {
       console.log(error);
@@ -68,13 +65,6 @@ const handleAddressInput =(e)=>setAddress(e.target.value)
           name="lat"
           value={lat}
           onChange={(e) => handleLatInput(e)}
-        />
-         <label>Address</label>
-        <input
-          type="text"
-          name="address"
-          value={address}
-          onChange={(e) => handleAddressInput(e)}
         />
         {/* busca en el mapa */}
         <label>Fotos</label>

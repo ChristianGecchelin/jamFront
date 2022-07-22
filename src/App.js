@@ -29,16 +29,6 @@ function App() {
 							<MapPage />
 					}
 				/>
-
-				<Route
-					exact
-					path="/projects/:id"
-					element={
-						<PrivateRoute>
-							<ProjectDetailsPage />
-						</PrivateRoute>
-					}
-				/>
 				
 				<Route
 					exact

@@ -9,7 +9,7 @@ function LoginPage(props) {
 	const [ password, setPassword ] = useState('');
 	const [ errorMessage, setErrorMessage ] = useState(undefined);
 	const navigate = useNavigate();
-	const { logInUser } = useContext(AuthContext);
+	const { logInUser, user } = useContext(AuthContext);
 
 	const handleEmail = (e) => setEmail(e.target.value);
 	const handlePassword = (e) => setPassword(e.target.value);

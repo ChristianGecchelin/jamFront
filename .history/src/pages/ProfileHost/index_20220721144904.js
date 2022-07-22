@@ -7,7 +7,7 @@ const ProfileHost = () => {
     const{user}=useContext(AuthContext)
     const[editView,setEditView]=useState('false')
     const handleToggle=()=>{
-         setEditView(!editView)
+        setEditView(!editView)
     }
     return ( 
         <section>
@@ -23,5 +23,5 @@ const ProfileHost = () => {
         </div>
     </section> );
 }
- 
+
 export default ProfileHost;

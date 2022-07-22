@@ -42,11 +42,11 @@ function AuthProviderWrapper(props) {
 		localStorage.setItem('authToken', token);
 		verifyStoredToken();
 
-		/* 
-      After saving the token in the localStorage we call the
-      function `verifyStoredToken` which sends a new request to the
-      server to verify the token. Upon receiving the response the function 
-      `verifyStoredToken` updates the state variables `isLoggedIn`, `user` and `isLoading`
+	/* 
+	After saving the token in the localStorage we call the
+	function `verifyStoredToken` which sends a new request to the
+	server to verify the token. Upon receiving the response the function 
+	`verifyStoredToken` updates the state variables `isLoggedIn`, `user` and `isLoading`
     */
 	};
 

@@ -62,6 +62,14 @@ function App() {
 							<MapPage />
 					}
 				/>
+				
+				<Route
+					exact
+					path="/createjam"
+					element={
+							<CreateJam />
+					}
+				/>
 
 				<Route
 					exact

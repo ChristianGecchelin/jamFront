@@ -1,10 +1,19 @@
 import { useState } from 'react';
-import JamDatePicker from '../DatePicker';
+import React from 'react';
+import {DatePicker} from '@material-ui/pickers';
 
 function JamFilter(props) {
-    const {jams} = props
-    return (
-    <JamDatePicker/>
+    const {searchJams} = props
+    const [searchDate,setSearchDate] = useState(new Date())
+
+    const handleDate = (e) => {
+        console.log(e)
+        searchJams(new Date(e))
+        setSearchDate(new Date(e))
+    }
+
+    return(
+        <DatePicker value={searchDate} onChange={handleDate} />
     )
 }
 export default JamFilter

@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated';
+import {DatePicker} from '@material-ui/pickers';
 
 const API_URL = "http://localhost:5005";
 
@@ -21,7 +22,7 @@ function CreateJam () {
     {value:'Other',label:'Other'},
     {value:'All kind',label:'All kind'},]
     const [name,setName] = useState("")
-    const [date,setDate] = useState("")
+    const [date,setDate] = useState(new Date(Date.now))
     const [description,setDescription] = useState("")
     const [limit,setLimit] = useState(false)
     const [categories,setCategories] = useState([])
@@ -36,7 +37,7 @@ function CreateJam () {
         .post(`${API_URL}/api/jams`, requestBody)
         .then(()=>{
             setName("")
-            setDate("")
+            setDate(new Date(Date.now))
             setDescription("")
             setLimit(false)
             setCategories([])
@@ -54,9 +55,7 @@ function CreateJam () {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Date</Form.Label>
-                <Form.Control type="text" name="date" value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                />
+                <DatePicker value={date} onChange={setDate} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Description</Form.Label>

@@ -8,15 +8,34 @@ const API_URL = "http://localhost:5005";
 
 function JamListPage() {
     const [jams, setjams] = useState([])
+    const [cloneJams,setCloneJams] = useState(jams)
+
+    const searchJamsByDate = (date) => {
+        //Convert the date without the hours
+        let convertedDate = date.setHours(0,0,0,0)
+        const updatedJams = cloneJams.filter((cloneJam)=>{
+            if(convertedDate===null){
+                return cloneJam
+            }else{
+                //Convert the date into a date object, without the hours
+                let convertedJamDate = new Date(cloneJam.date).setHours(0,0,0,0)
+                return convertedJamDate === convertedDate
+            }
+        })
+        setjams(updatedJams)
+    }
+
     useEffect(()=>{
         axios
         .get(`${API_URL}/api/jams`)
-        .then(allJams => setjams(allJams.data))
+        .then((allJams) => 
+        {setjams(allJams.data)
+        setCloneJams(allJams.data)})
         .catch(err=>console.log(err))
     },[])
     return (
         <>
-        <JamFilter/>
+        <JamFilter searchJams={searchJamsByDate}/>
         <List sx={{ width: '100%', maxWidth: 700, bgcolor: 'background.paper' }}>
             {jams.map((jam) => (
             <ListItem

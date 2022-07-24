@@ -63,7 +63,10 @@ function JamListPage() {
                 </IconButton>
             }
             >
-            <ListItemText primary={`${jam.name}             ${jam.date}`} />
+            <ListItemText primary={`${jam.name}        ${jam.date}`} />
+            {jam.host &&
+                <ListItemText primary={`${jam.host.username}`} />
+            }
             </ListItem>
             ))}
         </List>

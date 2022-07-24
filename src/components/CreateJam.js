@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/auth.context';
@@ -12,6 +12,7 @@ const API_URL = "http://localhost:5005";
 
 
 function CreateJam () {
+    const navigate = useNavigate()
     const musicalGenre = [{value:'Jazz',label:'Jazz'},
     {value:'Funk',label:'Funk'},
     {value:'Blues',label:'Blues'},
@@ -26,13 +27,13 @@ function CreateJam () {
     const [description,setDescription] = useState("")
     const [limit,setLimit] = useState(false)
     const [categories,setCategories] = useState([])
-    const {loggedUser} = useContext(AuthContext);
+    const [activeUser,setActiveUser] = useState([])
+    const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
     const animatedComponents = makeAnimated();
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const requestBody = {name, date, description, limit, categories}
+        const requestBody = {name, date, description, limit, categories,userId:user._id}
         axios
         .post(`${API_URL}/api/jams`, requestBody)
         .then(()=>{
@@ -41,13 +42,14 @@ function CreateJam () {
             setDescription("")
             setLimit(false)
             setCategories([])
+            navigate('/')
         })
     }
 
     return (
         <Form onSubmit={handleSubmit} id="form-task">
             <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Name</Form.Label>
+                <Form.Label>Name your jam</Form.Label>
                 <Form.Control type="text" name="name" value={name}
                 placeholder="Enter the name of your project" 
                 onChange={(e) => setName(e.target.value)}

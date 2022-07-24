@@ -67,7 +67,9 @@ function App() {
 					exact
 					path="/createjam"
 					element={
+						<PrivateRoute>
 							<CreateJam />
+						</PrivateRoute>	
 					}
 				/>
 
@@ -101,7 +103,7 @@ function App() {
 						</AnonRoute>
 					}
 				/>
-
+				
 				{user&&<Route
 					exact
 					path="/profile"

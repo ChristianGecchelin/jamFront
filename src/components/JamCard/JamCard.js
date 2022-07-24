@@ -13,7 +13,7 @@ import AvatarGroup from '@mui/material/AvatarGroup';
 function JamCard(props) {
     const {jam} = props
     const musicians = jam.musicians
-    const creator = jam.creator
+    const host = jam.host
 
     return(
         <Card sx={{ maxWidth: 345 }}>
@@ -23,15 +23,15 @@ function JamCard(props) {
                     height="100"
                     >
                 <Stack direction="row" spacing={1}>
-                    {creator.picture.length > 0 ? 
+                    {host.picture.length > 0 ? 
                     (<Chip
-                        avatar={<Avatar alt={creator.username} src={creator.picture} />}
-                        label={creator.username}
+                        avatar={<Avatar alt={host.username} src={host.picture} />}
+                        label={host.username}
                         variant="outlined"
                     />) : 
                     (<Chip
-                        avatar={<Avatar>{creator.username[0]}</Avatar>}
-                        label={creator.username}
+                        avatar={<Avatar>{host.username[0]}</Avatar>}
+                        label={host.username}
                         variant="outlined"
                     />)
                     }

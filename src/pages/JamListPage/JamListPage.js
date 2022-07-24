@@ -2,13 +2,15 @@ import { List,IconButton,ListItem,ListItemText  } from '@mui/material';
 import axios from 'axios';
 import { useState,useEffect } from 'react';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import JamFilter from '../../components/JamFilter/JamFilter';
+import JamFilterByDate from '../../components/JamFilters/JamFilterByDate';
+import JamFilterByCategory from '../../components/JamFilters/JamFileterByCategory';
 
 const API_URL = "http://localhost:5005"; 
 
 function JamListPage() {
     const [jams, setjams] = useState([])
     const [cloneJams,setCloneJams] = useState(jams)
+    const [cat,setCat] = useState(cloneJams.categories)
 
     const searchJamsByDate = (date) => {
         //Convert the date without the hours
@@ -25,6 +27,20 @@ function JamListPage() {
         setjams(updatedJams)
     }
 
+    const searchJamByCategory = (categoriesList) => {
+        const catList = cloneJams.categories
+        console.log('CLONEJAM',cloneJams)
+        console.log('CATLIST',cat)
+        const updatedJams = cloneJams.filter((jam)=>{
+            if(categoriesList.length === 0){
+                return jam
+            }else{
+                return categoriesList.includes(jam.categories)
+            }
+        })
+        setjams(updatedJams)
+    }
+
     useEffect(()=>{
         axios
         .get(`${API_URL}/api/jams`)
@@ -35,7 +51,8 @@ function JamListPage() {
     },[])
     return (
         <>
-        <JamFilter searchJams={searchJamsByDate}/>
+        <JamFilterByDate searchJams={searchJamsByDate}/>
+        <JamFilterByCategory searchJams={searchJamByCategory}/>
         <List sx={{ width: '100%', maxWidth: 700, bgcolor: 'background.paper' }}>
             {jams.map((jam) => (
             <ListItem

@@ -4,8 +4,14 @@ import { useState,useEffect } from 'react';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import JamFilterByDate from '../../components/JamFilters/JamFilterByDate';
 import JamFilterByCategory from '../../components/JamFilters/JamFileterByCategory';
+import SimplePopper from '../../components/Popper';
 
 const API_URL = "http://localhost:5005"; 
+
+
+/*<IconButton aria-label="comment">
+                    <OpenInNewIcon/>
+                </IconButton>*/
 
 function JamListPage() {
     const [jams, setjams] = useState([])
@@ -58,9 +64,8 @@ function JamListPage() {
             <ListItem
             key={jam._id}
             secondaryAction={
-                <IconButton aria-label="comment">
-                    <OpenInNewIcon/>
-                </IconButton>
+                <SimplePopper jam={jam}/>
+                
             }
             >
             <ListItemText primary={`${jam.name}        ${jam.date}`} />

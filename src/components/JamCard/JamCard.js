@@ -16,14 +16,14 @@ function JamCard(props) {
     const host = jam.host
 
     return(
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ maxWidth: 345 , color:"black"}}>
             <CardContent>
                 <CardMedia
                     alt="green iguana"
                     height="100"
                     >
                 <Stack direction="row" spacing={1}>
-                    {host.picture.length > 0 ? 
+                    {host.picture ? 
                     (<Chip
                         avatar={<Avatar alt={host.username} src={host.picture} />}
                         label={host.username}
@@ -65,3 +65,5 @@ function JamCard(props) {
         </Card>
     )
 }
+
+export default JamCard

@@ -22,7 +22,7 @@ function SimplePopper(props) {
             <OpenInNewIcon/>
         </IconButton>
         <Popper id={id} open={open} anchorEl={anchorEl}>
-            <JamCard jam={jam}/>
+            <JamCard jam={jam} back={handleClick}/>
         </Popper>
         </div>
     );

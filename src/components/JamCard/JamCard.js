@@ -11,7 +11,7 @@ import AvatarGroup from '@mui/material/AvatarGroup';
 
 
 function JamCard(props) {
-    const {jam} = props
+    const {jam,back} = props
     const musicians = jam.musicians
     const host = jam.host
 
@@ -60,7 +60,7 @@ function JamCard(props) {
             </CardContent>
             <CardActions>
                 <Button size="small">I am in!</Button>
-                <Button size="small">Back</Button>
+                <Button size="small" onClick={back}>Back</Button>
             </CardActions>
         </Card>
     )

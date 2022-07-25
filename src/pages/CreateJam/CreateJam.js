@@ -1,7 +1,7 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/auth.context';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/auth.context';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Select from 'react-select'
@@ -27,8 +27,7 @@ function CreateJam () {
     const [description,setDescription] = useState("")
     const [limit,setLimit] = useState(false)
     const [categories,setCategories] = useState([])
-    const [activeUser,setActiveUser] = useState([])
-    const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const animatedComponents = makeAnimated();
 
     const handleSubmit = (e) => {

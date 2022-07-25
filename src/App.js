@@ -12,7 +12,8 @@ import ProfileHost from './pages/ProfileHost/ProfileHost';
 import ProfileMusician from './pages/ProfileMusician/ProfileMusician';
 import {AuthContext} from './context/auth.context';
 import NewPlace from './pages/NewPlace/NewPlace'
-import CreateJam from './components/CreateJam';
+import CreateJam from './pages/CreateJam/CreateJam';
+import EditJam from './pages/EditJam/EditJam';
 import JamListPage from './pages/JamListPage/JamListPage';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
@@ -69,6 +70,16 @@ function App() {
 					element={
 						<PrivateRoute>
 							<CreateJam />
+						</PrivateRoute>	
+					}
+				/>
+
+				<Route
+					exact
+					path="/editjam/:jamId"
+					element={
+						<PrivateRoute>
+							<EditJam />
 						</PrivateRoute>	
 					}
 				/>

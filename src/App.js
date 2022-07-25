@@ -20,6 +20,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import JamDetailPage from './pages/JamDetailPage/JamDetailPage';
 //MATERIAL UI
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import ResponsiveAppBar from './components/ResponsiveNavBar';
 const customTheme = createTheme({
 	//Color settings
 	palette:{
@@ -51,7 +52,7 @@ function App() {
 		
 		
 		<MuiPickersUtilsProvider utils={DateFnsUtils}>
-			<Navbar/>
+			<ResponsiveAppBar/>
 
 			<Routes>
 				<Route exact path="/" component={HomePage} />

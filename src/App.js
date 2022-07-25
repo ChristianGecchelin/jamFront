@@ -17,10 +17,9 @@ import EditJam from './pages/EditJam/EditJam';
 import JamListPage from './pages/JamListPage/JamListPage';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-
+import JamDetailPage from './pages/JamDetailPage/JamDetailPage';
 //MATERIAL UI
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Box } from '@mui/material';
 const customTheme = createTheme({
 	//Color settings
 	palette:{
@@ -88,12 +87,17 @@ function App() {
 					exact
 					path="/jams"
 					element={
-						
 							<JamListPage />
-						
 					}
 				/>
 
+				<Route
+					exact
+					path="/jams/:jamId"
+					element={
+						<JamDetailPage />
+					}
+				/>
 				
 				<Route
 					exact

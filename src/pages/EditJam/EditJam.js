@@ -48,7 +48,7 @@ function EditJam () {
         e.preventDefault();
         const requestBody = {name, date, description, limit, categories,userId:user._id}
         axios
-        .post(`${API_URL}/api/jams`, requestBody)
+        .put(`${API_URL}/api/jams/${jamId}`, requestBody)
         .then(()=>{
             setName("")
             setDate(new Date(Date.now))

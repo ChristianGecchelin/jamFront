@@ -5,6 +5,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import JamFilterByDate from '../../components/JamFilters/JamFilterByDate';
 import JamFilterByCategory from '../../components/JamFilters/JamFileterByCategory';
 import SimplePopper from '../../components/Popper';
+import Divider from '@mui/material/Divider';
 
 const API_URL = "http://localhost:5005"; 
 
@@ -61,6 +62,7 @@ function JamListPage() {
         <JamFilterByCategory searchJams={searchJamByCategory}/>
         <List sx={{ width: '100%', maxWidth: 700, bgcolor: 'background.paper' }}>
             {jams.map((jam) => (
+            <>
             <ListItem
             key={jam._id}
             secondaryAction={
@@ -73,6 +75,8 @@ function JamListPage() {
                 <ListItemText primary={`${jam.host.username}`} />
             }
             </ListItem>
+            <Divider/>
+            </>
             ))}
         </List>
         </>

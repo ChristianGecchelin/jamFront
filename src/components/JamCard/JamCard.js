@@ -8,7 +8,7 @@ import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import CardMedia from '@mui/material/CardMedia';
 import AvatarGroup from '@mui/material/AvatarGroup';
-
+import { Link } from 'react-router-dom';
 
 function JamCard(props) {
     const {jam,back} = props
@@ -60,7 +60,8 @@ function JamCard(props) {
             </CardContent>
             <CardActions>
                 <Button size="small">I am in!</Button>
-                <Button size="small" onClick={back}>Back</Button>
+                <Link to={`/jams/${jam._id}`}><Button size="small">Details</Button></Link>
+                <Button size="small"  onClick={back}>Back</Button>
             </CardActions>
         </Card>
     )

@@ -1,33 +1,33 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
-const FilterUsers = () => {
+const FilterUsers = (props) => {
+  const { getSearchParams } = props;
   const instrumentsData = [
-    "Guitar",
-    "Drums",
-    "Bass",
-    "Piano",
-    "Singer",
-    "Harmonica",
-    "Saxophone",
-    "Trumpet",
+    { value: "Guitar", label: "Guitar" },
+    { value: "Drums", label: "Drums" },
+    { value: "Bass", label: "Bass" },
+    { value: "Piano", label: "Piano" },
+    { value: "Singer", label: "Singer" },
+    { value: "Harmonica", label: "Harmonica" },
+    { value: "Saxophone", label: "Saxophone" },
+    { value: "Trumpet", label: "Trumpet" },
   ];
   const [search, setSearch] = useState("");
   const [instruments, setInstruments] = useState([]);
   const animatedComponents = makeAnimated();
-  let requestBody
+  let requestBody;
   const handleSubmit = (e) => {
     e.preventDefault();
-    requestBody=  { search, instruments };
+    requestBody = { search, instruments };
     setSearch("");
     setInstruments([]);
-    return requestBody;
+    getSearchParams(requestBody);
   };
-  console.log(requestBody)
-
+  // si quisiera filtrar onchange, deberia pasar el getsearchparam en el onchange y no el onsubmit
   return (
     <div>
       <Form onSubmit={handleSubmit} id="form-task">
@@ -46,7 +46,6 @@ const FilterUsers = () => {
           <Select
             closeMenuOnSelect={false}
             components={animatedComponents}
-            defaultValue={[instrumentsData[7]]}
             isMulti
             options={instrumentsData}
             onChange={(e) => setInstruments(e)}

@@ -3,7 +3,7 @@ import {useContext} from 'react'
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
-import MapPage from './pages/MapPage';
+import MapPage from './pages/MapPage/MapPage';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import PrivateRoute from './components/PrivateRoute'; 
@@ -13,6 +13,7 @@ import ProfileMusician from './pages/ProfileMusician/ProfileMusician';
 import {AuthContext} from './context/auth.context';
 import NewPlace from './pages/NewPlace/NewPlace'
 import CreateJam from './components/CreateJam';
+import ExploreUsers from './pages/ExploreUsers/ExploreUsers'
 
 //MATERIAL UI
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -94,7 +95,15 @@ function App() {
             }
           />
         )}
-
+        <Route
+          exact
+          path="/explore"
+          element={
+            <PrivateRoute>
+              <ExploreUsers />
+            </PrivateRoute>
+          }
+        />
         <Route
           exact
           path="/newPlace"
@@ -105,7 +114,12 @@ function App() {
           }
         />
       </Routes>
-    </ThemeProvider>
+      
+        
+        </ThemeProvider>
+      
+      
+    
   );
 }
 

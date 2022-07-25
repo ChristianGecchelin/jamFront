@@ -50,7 +50,7 @@ function App() {
 	
 	return (
 		
-		<ThemeProvider theme={customTheme}>
+		
 		<MuiPickersUtilsProvider utils={DateFnsUtils}>
 			<Navbar/>
 
@@ -137,7 +137,7 @@ function App() {
 				/>
 				</Routes>
 			</MuiPickersUtilsProvider>		
-		</ThemeProvider>
+		
 		
 	);
 }

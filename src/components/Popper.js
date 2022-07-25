@@ -4,6 +4,8 @@ import Popper from '@mui/material/Popper';
 import JamCard from './JamCard/JamCard';
 import { IconButton } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+
 
 function SimplePopper(props) {
     const {jam} = props
@@ -13,17 +15,25 @@ function SimplePopper(props) {
         setAnchorEl(anchorEl ? null : event.currentTarget);
     };
 
+    const handleClickAway = (event) => {
+        setAnchorEl(null);
+    };
+
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popper' : undefined;
 
     return (
         <div>
+        <ClickAwayListener onClickAway={handleClickAway}>
         <IconButton aria-describedby={id} aria-label="comment" type="button" onClick={handleClick}>
             <OpenInNewIcon/>
         </IconButton>
+        </ClickAwayListener>  
         <Popper id={id} open={open} anchorEl={anchorEl}>
-            <JamCard jam={jam} back={handleClick}/>
+            
+            <JamCard jam={jam} back={handleClick}/>   
         </Popper>
+        
         </div>
     );
     }

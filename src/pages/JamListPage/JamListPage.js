@@ -30,16 +30,7 @@ function JamListPage() {
         })
         setjams(updatedJams)
     }
-
-    /*useEffect(()=>{
-        axios
-        .get(`${API_URL}/api/jams`)
-        .then((allJams) => 
-        {setjams(allJams.data)
-        setCloneJams(allJams.data)})
-        .catch(err=>console.log(err))
-    },[])*/
-
+    
     useEffect(()=>{
         console.log(allJams)
         setjams(allJams)

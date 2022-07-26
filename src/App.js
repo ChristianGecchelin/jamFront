@@ -1,4 +1,5 @@
 import './App.css';
+
 import {useContext} from 'react'
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -12,12 +13,15 @@ import ProfileHost from './pages/ProfileHost/ProfileHost';
 import ProfileMusician from './pages/ProfileMusician/ProfileMusician';
 import {AuthContext} from './context/auth.context';
 import NewPlace from './pages/NewPlace/NewPlace'
-import CreateJam from './components/CreateJam';
-import ExploreUsers from './pages/ExploreUsers/ExploreUsers'
-
+import CreateJam from './pages/CreateJam/CreateJam';
+import EditJam from './pages/EditJam/EditJam';
+import JamListPage from './pages/JamListPage/JamListPage';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import JamDetailPage from './pages/JamDetailPage/JamDetailPage';
 //MATERIAL UI
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Box } from '@mui/material';
+import ResponsiveAppBar from './components/ResponsiveNavBar';
 const customTheme = createTheme({
 	//Color settings
 	palette:{
@@ -46,81 +50,101 @@ function App() {
 	const {user} = useContext(AuthContext)
 	
 	return (
-		
 		<ThemeProvider theme={customTheme}>
 			<Navbar/>
 
       <Routes>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/map" element={<MapPage />} />
+				<Route exact path="/" component={HomePage} />
+				<Route
+					exact
+					path="/map"
+					element={
+						<MapPage />
+					}
+				/>
+				
+				<Route
+					exact
+					path="/createjam"
+					element={
+						<PrivateRoute>
+						</PrivateRoute>	
+					}
+				/>
+
+				<Route
+					exact
+					path="/editjam/:jamId"
+					element={
+						<PrivateRoute>
+							<EditJam />
+						</PrivateRoute>	
+					}
+				/>
 
 				<Route
 					exact
 					path="/jams"
 					element={
+							<JamListPage />
+					}
+				/>
+
+				<Route
+					exact
+					path="/jams/:jamId"
+					element={
+						<JamDetailPage />
+					}
+				/>
+				
+        		<Route
+         			 exact
+          			path="/signup"
+         			 element={
+            		<AnonRoute>
+             		 <SignupPage />
+           			 </AnonRoute>
+         			 }
+					 />
+
+				<Route
+					exact
+					path="/login"
+					element={
+						<AnonRoute>
+							<LoginPage />
+						</AnonRoute>
+					}
+				/>
+				
+				{user&&<Route
+					exact
+					path="/profile"
+					element={
 						<PrivateRoute>
-							<CreateJam />
+							{user.type==='host'?<ProfileHost />:
+							<ProfileMusician/>}
+						</PrivateRoute>
+					}
+				/>}
+
+				<Route
+					exact
+					path="/newPlace"
+					element={
+						<PrivateRoute>
+							<NewPlace />
 						</PrivateRoute>
 					}
 				/>
 				
-        <Route
-          exact
-          path="/signup"
-          element={
-            <AnonRoute>
-              <SignupPage />
-            </AnonRoute>
-          }
-        />
-
-        <Route
-          exact
-          path="/login"
-          element={
-            <AnonRoute>
-              <LoginPage />
-            </AnonRoute>
-          }
-        />
-
-        {user && (
-          <Route
-            exact
-            path="/profile"
-            element={
-              <PrivateRoute>
-                {user.type === "host" ? <ProfileHost /> : <ProfileMusician />}
-              </PrivateRoute>
-            }
-          />
-        )}
-        <Route
-          exact
-          path="/explore"
-          element={
-            <PrivateRoute>
-              <ExploreUsers />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          exact
-          path="/newPlace"
-          element={
-            <PrivateRoute>
-              <NewPlace />
-            </PrivateRoute>
-          }
-        />
-      </Routes>
-      
-        
-        </ThemeProvider>
-      
-      
-    
-  );
+				</Routes>
+			</ThemeProvider>		
+		
+		
+	);
 }
 
 export default App;

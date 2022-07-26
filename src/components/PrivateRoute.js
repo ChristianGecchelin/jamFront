@@ -9,7 +9,7 @@ const  PrivateRoute =(props) => {
 	if (isLoading) return <p>Loading ...</p>;
 
 	// If the user is not logged in ❌
-	if (!isLoggedIn) return <Navigate to="/login" replace />;
+	if (!isLoggedIn) return <Navigate to="/login"/>;
 
 	// If the user is logged in ✅
 	return props.children;

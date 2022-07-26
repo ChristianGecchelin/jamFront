@@ -18,8 +18,7 @@ function JamProviderWrapper(props) {
 
     useEffect(()=>{
         getAllJams()
-        console.log(allJams)
-    },[allJams])
+    },[allJams.length])
 
     return (
 		<JamContext.Provider value={{ allJams }}>

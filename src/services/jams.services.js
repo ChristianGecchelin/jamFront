@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const API_URL = process.env.REACT_APP_API_URL
 
 
@@ -51,4 +52,8 @@ function unregisterToJam(jamId,user){
 	
 }
 
-export { registerToJam, unregisterToJam};
+function deleteJam(jamId){
+	return axios.delete(`${API_URL}/jams/${jamId}`)
+}
+
+export { registerToJam, unregisterToJam,deleteJam};

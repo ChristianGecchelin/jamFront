@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { AuthContext } from '../../context/auth.context';
 import axios from 'axios';
 import { format, setDate } from "date-fns";
+import { deleteJam } from "../../services/jams.services";
 
 
 //MATERIAL UI
@@ -17,6 +18,7 @@ import AvatarGroup from '@mui/material/AvatarGroup';
 import LockIcon from '@mui/icons-material/Lock';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import EventIcon from '@mui/icons-material/Event';
+import { Button } from "@mui/material";
 
 const API_URL = "http://localhost:5005";
 
@@ -27,6 +29,7 @@ function JamDetailPage () {
     const [musicians, setMusicians] = useState([])
     const [date,setDate] = useState("")
     const [categories,setCategories] = useState([])
+    const navigate = useNavigate()
 
     useEffect(()=>{
         const getJam = async (jamId) =>{
@@ -45,7 +48,7 @@ function JamDetailPage () {
             .catch(err=>console.log(err))
         }
         getJam(jamId)
-    },[])
+        },[])
     
     return(
             <>
@@ -117,6 +120,11 @@ function JamDetailPage () {
                         </Typography>
                         </>
                     }
+                    <Button onClick={()=>{
+                        deleteJam(jam._id)
+                        navigate('/jams')
+                    }}>Delete</Button>
+                    <Button>Edit</Button>
                 </Paper>
             </Box>
 

@@ -18,7 +18,6 @@ function JamProviderWrapper(props) {
 
     useEffect(()=>{
         getAllJams()
-        console.log(allJams)
     },[allJams.length])
 
     return (

@@ -1,23 +1,20 @@
-import { List,IconButton,ListItem,ListItemText  } from '@mui/material';
+import { List,ListItem,ListItemText  } from '@mui/material';
 import axios from 'axios';
 import { useState,useEffect } from 'react';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { useContext } from "react";                       // <== IMPORT 
+import { AuthContext } from "../../context/auth.context"; 
 import JamFilterByDate from '../../components/JamFilters/JamFilterByDate';
 import JamFilterByCategory from '../../components/JamFilters/JamFileterByCategory';
 import SimplePopper from '../../components/Popper';
 import Divider from '@mui/material/Divider';
+import Box from '@mui/material/Box';
 
 const API_URL = "http://localhost:5005"; 
-
-
-/*<IconButton aria-label="comment">
-                    <OpenInNewIcon/>
-                </IconButton>*/
 
 function JamListPage() {
     const [jams, setjams] = useState([])
     const [cloneJams,setCloneJams] = useState(jams)
-    const [cat,setCat] = useState(cloneJams.categories)
+    const { user } = useContext(AuthContext)  
 
     const searchJamsByDate = (date) => {
         //Convert the date without the hours
@@ -34,20 +31,6 @@ function JamListPage() {
         setjams(updatedJams)
     }
 
-    const searchJamByCategory = (categoriesList) => {
-        const catList = cloneJams.categories
-        console.log('CLONEJAM',cloneJams)
-        console.log('CATLIST',cat)
-        const updatedJams = cloneJams.filter((jam)=>{
-            if(categoriesList.length === 0){
-                return jam
-            }else{
-                return categoriesList.includes(jam.categories)
-            }
-        })
-        setjams(updatedJams)
-    }
-
     useEffect(()=>{
         axios
         .get(`${API_URL}/api/jams`)
@@ -56,10 +39,10 @@ function JamListPage() {
         setCloneJams(allJams.data)})
         .catch(err=>console.log(err))
     },[])
+
     return (
-        <>
+        <Box>
         <JamFilterByDate searchJams={searchJamsByDate}/>
-        <JamFilterByCategory searchJams={searchJamByCategory}/>
         <List sx={{ width: '100%', maxWidth: 700, bgcolor: 'background.paper' }}>
             {jams.map((jam) => (
             <>
@@ -67,7 +50,6 @@ function JamListPage() {
             key={jam._id}
             secondaryAction={
                 <SimplePopper jam={jam}/>
-                
             }
             >
             <ListItemText primary={`${jam.name}        ${jam.date}`} />
@@ -79,7 +61,7 @@ function JamListPage() {
             </>
             ))}
         </List>
-        </>
+        </Box>
     )
 }
 export default JamListPage

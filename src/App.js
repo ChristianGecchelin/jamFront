@@ -1,4 +1,5 @@
 import './App.css';
+
 import {useContext} from 'react'
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -52,15 +53,16 @@ function App() {
 		
 		
 		<MuiPickersUtilsProvider utils={DateFnsUtils}>
+			
 			<ResponsiveAppBar/>
-
 			<Routes>
+				
 				<Route exact path="/" component={HomePage} />
 				<Route
 					exact
 					path="/map"
 					element={
-							<MapPage />
+						<MapPage />
 					}
 				/>
 				
@@ -140,6 +142,7 @@ function App() {
 						</PrivateRoute>
 					}
 				/>
+				
 				</Routes>
 			</MuiPickersUtilsProvider>		
 		

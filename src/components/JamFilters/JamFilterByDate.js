@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import React from 'react';
-import {DatePicker} from '@material-ui/pickers';
+import {KeyboardDatePicker } from '@material-ui/pickers';
 
 function JamFilterByDate(props) {
     const {searchJams} = props
@@ -13,7 +13,7 @@ function JamFilterByDate(props) {
     }
 
     return(
-        <DatePicker value={searchDate} onChange={handleDate} />
+        <KeyboardDatePicker  value={searchDate} onChange={handleDate} />
     )
 }
 export default JamFilterByDate

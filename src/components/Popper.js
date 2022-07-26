@@ -8,7 +8,7 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 
 function SimplePopper(props) {
-    const {jam} = props
+    const {jam, addJamToUserList} = props
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handleClick = (event) => {
@@ -31,7 +31,7 @@ function SimplePopper(props) {
         </ClickAwayListener>  
         <Popper id={id} open={open} anchorEl={anchorEl}>
             
-            <JamCard jam={jam} back={handleClick}/>   
+            <JamCard jam={jam} back={handleClick} addJamToUserList={addJamToUserList}/>   
         </Popper>
         
         </div>

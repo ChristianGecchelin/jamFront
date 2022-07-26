@@ -16,6 +16,7 @@ import Box from '@mui/material/Box';
 import Autocomplete from '@mui/material/Autocomplete';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import { JamContext } from '../../context/jams.context';
 
 const API_URL = "http://localhost:5005";
 
@@ -39,6 +40,7 @@ function CreateJam () {
     const [placeList,setPlaceList] = useState([])
     const { user } = useContext(AuthContext);
     const animatedComponents = makeAnimated();
+    const {setAllJams} = useContext(JamContext)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -51,7 +53,14 @@ function CreateJam () {
             setDescription("")
             setLimit(false)
             setCategories([])
-            navigate('/')
+            navigate('/jams')
+        })
+        .then(()=>{
+            axios.get(`${API_URL}/api/jams`)
+            .then((jams)=>{
+                console.log(jams)
+                setAllJams(jams.data)
+            })
         })
     }
 

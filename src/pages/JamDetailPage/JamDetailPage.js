@@ -1,10 +1,10 @@
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams,useNavigate, Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from '../../context/auth.context';
 import axios from 'axios';
 import { format, setDate } from "date-fns";
 import { deleteJam } from "../../services/jams.services";
-
+import { JamContext } from "../../context/jams.context";
 
 //MATERIAL UI
 import Box from '@mui/material/Box';
@@ -23,6 +23,7 @@ import { Button } from "@mui/material";
 const API_URL = "http://localhost:5005";
 
 function JamDetailPage () {
+
     const {jamId} = useParams()  
     const [jam, setJam] = useState([])
     const [host, setHost] = useState([])
@@ -30,10 +31,10 @@ function JamDetailPage () {
     const [date,setDate] = useState("")
     const [categories,setCategories] = useState([])
     const navigate = useNavigate()
+    const {setAllJams} = useContext(JamContext)
 
     useEffect(()=>{
-        const getJam = async (jamId) =>{
-            await axios
+            axios
             .get(`${API_URL}/api/jams/${jamId}`)
             .then((response)=>{
             const jamFound = response.data
@@ -46,10 +47,9 @@ function JamDetailPage () {
             setDate(formatedDate)
             })
             .catch(err=>console.log(err))
-        }
-        getJam(jamId)
+        
         },[])
-    
+
     return(
             <>
             <Box sx={{ width: '100%', maxWidth: 500 }}>

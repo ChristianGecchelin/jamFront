@@ -21,7 +21,7 @@ function JamProviderWrapper(props) {
     },[allJams.length])
 
     return (
-		<JamContext.Provider value={{ allJams }}>
+		<JamContext.Provider value={{ allJams, setAllJams }}>
 			{props.children}
 		</JamContext.Provider>
 	);

@@ -56,4 +56,19 @@ function deleteJam(jamId){
 	return axios.delete(`${API_URL}/jams/${jamId}`)
 }
 
-export { registerToJam, unregisterToJam,deleteJam};
+const searchJamsByDate = (date,cloneJams) => {
+	//Convert the date without the hours
+	let convertedDate = date.setHours(0,0,0,0)
+	const updatedJams = cloneJams.filter((cloneJam)=>{
+		if(convertedDate===null){
+			return cloneJam
+		}else{
+			//Convert the date into a date object, without the hours
+			let convertedJamDate = new Date(cloneJam.date).setHours(0,0,0,0)
+			return convertedJamDate === convertedDate
+		}
+	})
+	return updatedJams
+}
+
+export { registerToJam, unregisterToJam,deleteJam, searchJamsByDate};

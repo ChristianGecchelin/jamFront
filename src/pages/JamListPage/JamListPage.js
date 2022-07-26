@@ -9,37 +9,34 @@ import SimplePopper from '../../components/Popper';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import { JamContext } from '../../context/jams.context';
+import { searchJamsByDate } from '../../services/jams.services';
 const API_URL = "http://localhost:5005"; 
 
 function JamListPage() {
     const [jams, setjams] = useState([])
     const [cloneJams,setCloneJams] = useState(jams)
     const { user } = useContext(AuthContext)  
-    const {allJams} = useContext(JamContext)  
-    const searchJamsByDate = (date) => {
-        //Convert the date without the hours
-        let convertedDate = date.setHours(0,0,0,0)
-        const updatedJams = cloneJams.filter((cloneJam)=>{
-            if(convertedDate===null){
-                return cloneJam
-            }else{
-                //Convert the date into a date object, without the hours
-                let convertedJamDate = new Date(cloneJam.date).setHours(0,0,0,0)
-                return convertedJamDate === convertedDate
-            }
-        })
-        setjams(updatedJams)
-    }
+    const {allJams, setAllJams} = useContext(JamContext)  
     
     useEffect(()=>{
-        console.log(allJams)
         setjams(allJams)
         setCloneJams(allJams)
+        
     },[allJams])
+
+    useEffect(()=>{
+        axios.get(`${API_URL}/api/jams`)
+        .then((allJams)=>{
+            setjams(allJams.data)
+        })
+        .catch(err=>console.log(err))
+    },[])
 
     return (
         <Box>
-        <JamFilterByDate searchJams={searchJamsByDate}/>
+        <JamFilterByDate searchJams={(e)=>{
+            setjams(searchJamsByDate(e,cloneJams))
+        }}/>
         <List sx={{ width: '100%', maxWidth: 700, bgcolor: 'background.paper' }}>
             {jams.map((jam) => (
             <>

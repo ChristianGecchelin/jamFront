@@ -96,11 +96,14 @@ const ResponsiveAppBar = () => {
                         display: { xs: 'block', md: 'none' },
                     }}
                     >
-                    {pages.map((page) => (
-                        <MenuItem key={page.label} href={page.link} onClick={handleCloseNavMenu}>
-                        <Typography textAlign="center">{page.label}</Typography>
-                        </MenuItem>
-                    ))}
+                    
+                        {pages.map((page) => (
+                            
+                            <MenuItem key={page.label} href={page.link} onClick={handleCloseNavMenu}>
+                            <Typography textAlign="center">{page.label}</Typography>
+                            </MenuItem>
+                        ))}
+                    
                     </Menu>
                 </Box>
                 <MusicNoteIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, }} />

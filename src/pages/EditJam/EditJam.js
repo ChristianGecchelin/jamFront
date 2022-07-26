@@ -1,16 +1,18 @@
-import { useState, useContext } from 'react';
+import { useParams,useNavigate } from "react-router-dom";
+import { useState, useEffect,useContext } from "react";
+import { AuthContext } from '../../context/auth.context';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/auth.context';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated';
+import {DatePicker} from '@material-ui/pickers';
 
 const API_URL = "http://localhost:5005";
 
-
-function CreateJam () {
+function EditJam () {
+    const {jamId} = useParams()    
+    const navigate = useNavigate()
     const musicalGenre = [{value:'Jazz',label:'Jazz'},
     {value:'Funk',label:'Funk'},
     {value:'Blues',label:'Blues'},
@@ -21,32 +23,46 @@ function CreateJam () {
     {value:'Other',label:'Other'},
     {value:'All kind',label:'All kind'},]
     const [name,setName] = useState("")
-    const [date,setDate] = useState("")
+    const [date,setDate] = useState(new Date(Date.now))
     const [description,setDescription] = useState("")
     const [limit,setLimit] = useState(false)
     const [categories,setCategories] = useState([])
-    const {loggedUser} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const animatedComponents = makeAnimated();
 
+    useEffect(()=>{
+        axios
+        .get(`${API_URL}/api/jams/${jamId}`)
+        .then((response)=>{
+            const jamFound = response.data
+            setName(jamFound.name)
+            setDate(jamFound.date)
+            setDescription(jamFound.description)
+            setLimit(jamFound.limit)
+            setCategories(jamFound.categories)
+        })
+        .catch(err=>console.log(err))
+    },[jamId])  
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const requestBody = {name, date, description, limit, categories}
+        const requestBody = {name, date, description, limit, categories,userId:user._id}
         axios
-        .post(`${API_URL}/api/jams`, requestBody)
+        .put(`${API_URL}/api/jams/${jamId}`, requestBody)
         .then(()=>{
             setName("")
-            setDate("")
+            setDate(new Date(Date.now))
             setDescription("")
             setLimit(false)
             setCategories([])
+            navigate('/')
         })
     }
 
     return (
         <Form onSubmit={handleSubmit} id="form-task">
             <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Name</Form.Label>
+                <Form.Label>Name your jam</Form.Label>
                 <Form.Control type="text" name="name" value={name}
                 placeholder="Enter the name of your project" 
                 onChange={(e) => setName(e.target.value)}
@@ -54,9 +70,7 @@ function CreateJam () {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Date</Form.Label>
-                <Form.Control type="text" name="date" value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                />
+                <DatePicker value={date} onChange={setDate} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Description</Form.Label>
@@ -93,4 +107,4 @@ function CreateJam () {
     )
 }
 
-export default CreateJam;
+export default EditJam

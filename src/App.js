@@ -1,4 +1,5 @@
 import './App.css';
+
 import {useContext} from 'react'
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -12,11 +13,15 @@ import ProfileHost from './pages/ProfileHost/ProfileHost';
 import ProfileMusician from './pages/ProfileMusician/ProfileMusician';
 import {AuthContext} from './context/auth.context';
 import NewPlace from './pages/NewPlace/NewPlace'
-import CreateJam from './components/CreateJam';
-
+import CreateJam from './pages/CreateJam/CreateJam';
+import EditJam from './pages/EditJam/EditJam';
+import JamListPage from './pages/JamListPage/JamListPage';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import JamDetailPage from './pages/JamDetailPage/JamDetailPage';
 //MATERIAL UI
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Box } from '@mui/material';
+import ResponsiveAppBar from './components/ResponsiveNavBar';
 const customTheme = createTheme({
 	//Color settings
 	palette:{
@@ -46,16 +51,38 @@ function App() {
 	
 	return (
 		
-		<ThemeProvider theme={customTheme}>
-			<Navbar/>
-
+		
+		<MuiPickersUtilsProvider utils={DateFnsUtils}>
+			
+			<ResponsiveAppBar/>
 			<Routes>
+				
 				<Route exact path="/" component={HomePage} />
 				<Route
 					exact
 					path="/map"
 					element={
-							<MapPage />
+						<MapPage />
+					}
+				/>
+				
+				<Route
+					exact
+					path="/createjam"
+					element={
+						<PrivateRoute>
+							<CreateJam />
+						</PrivateRoute>	
+					}
+				/>
+
+				<Route
+					exact
+					path="/editjam/:jamId"
+					element={
+						<PrivateRoute>
+							<EditJam />
+						</PrivateRoute>	
 					}
 				/>
 
@@ -63,12 +90,17 @@ function App() {
 					exact
 					path="/jams"
 					element={
-						<PrivateRoute>
-							<CreateJam />
-						</PrivateRoute>
+							<JamListPage />
 					}
 				/>
 
+				<Route
+					exact
+					path="/jams/:jamId"
+					element={
+						<JamDetailPage />
+					}
+				/>
 				
 				<Route
 					exact
@@ -89,7 +121,7 @@ function App() {
 						</AnonRoute>
 					}
 				/>
-
+				
 				{user&&<Route
 					exact
 					path="/profile"
@@ -110,8 +142,11 @@ function App() {
 						</PrivateRoute>
 					}
 				/>
+				
 				</Routes>
-		</ThemeProvider>
+			</MuiPickersUtilsProvider>		
+		
+		
 	);
 }
 

@@ -8,14 +8,14 @@ import JamFilterByCategory from '../../components/JamFilters/JamFileterByCategor
 import SimplePopper from '../../components/Popper';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
-
+import { JamContext } from '../../context/jams.context';
 const API_URL = "http://localhost:5005"; 
 
 function JamListPage() {
     const [jams, setjams] = useState([])
     const [cloneJams,setCloneJams] = useState(jams)
     const { user } = useContext(AuthContext)  
-
+    const {allJams} = useContext(JamContext)  
     const searchJamsByDate = (date) => {
         //Convert the date without the hours
         let convertedDate = date.setHours(0,0,0,0)
@@ -31,14 +31,20 @@ function JamListPage() {
         setjams(updatedJams)
     }
 
-    useEffect(()=>{
+    /*useEffect(()=>{
         axios
         .get(`${API_URL}/api/jams`)
         .then((allJams) => 
         {setjams(allJams.data)
         setCloneJams(allJams.data)})
         .catch(err=>console.log(err))
-    },[])
+    },[])*/
+
+    useEffect(()=>{
+        console.log(allJams)
+        setjams(allJams)
+        setCloneJams(allJams)
+    },[allJams])
 
     return (
         <Box>

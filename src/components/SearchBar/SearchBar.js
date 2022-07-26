@@ -6,6 +6,7 @@ import "./SearchBar.css";
 const SearchBar = () => {
   const debounceRef = useRef();
   const { searchPlacesByTerm } = useContext(AuthContext);
+
   const onQueryChange = (e) => {
     if (debounceRef.current) {
       clearTimeout(debounceRef.current);
@@ -20,9 +21,15 @@ const SearchBar = () => {
         type="text"
         className="form-control"
         placeholder="Buscar place..."
-        onChange={onQueryChange}
+        onChange={onQueryChange}/* 
+        style={{
+          position:'fixed',
+          top:150,
+          zIndex: 50,
+        width:'300px' }
+        } */
       />
-      <SearchResults/>
+      <SearchResults />
     </div>
   );
 };

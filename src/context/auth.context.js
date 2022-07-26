@@ -86,6 +86,7 @@ function AuthProviderWrapper(props) {
       },
     });
     setIsLoadingPlaces(false);
+    console.log(resp.data.features.center)
     setPlaces(resp.data.features);
     return resp.data;
   };
@@ -107,6 +108,7 @@ function AuthProviderWrapper(props) {
     const newMarkers = [];
     setMarkers(newMarkers)
     for (const place of places) {
+      console.log(place.center)
       const [lng, lat] = place.center;
       const popup = new Popup().setHTML(
         `<h6>${place.text_es}</h6><p>${place.place_name_es}</p>`

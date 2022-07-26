@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState,useContext, useLayoutEffect } from "react";
 import { AuthContext } from "../../context/auth.context";
+import { JamContext } from "../../context/jams.context";
 import mapboxgl,{Map,Marker,Popup} from "mapbox-gl";
 import BtnMyLocation from "../../components/BtnMyLocation/BtnMyLocation";
 import Loading from '../../components/Loading/Loading'
@@ -11,30 +12,12 @@ import pin from "../../assets/pin.png";
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 mapboxgl.accessToken=MAPBOX_TOKEN
-const data = [
-  {
-    location: "Manhattan Ave & Norman Ave at NE corner",
-    city: "Brooklyn",
-    state: "New York",
-    coordinates: [-73.9516030004786, 40.72557300071668],
-  },
-  {
-    location: "6th Ave & 42nd St at NW corner",
-    city: "Manhattan",
-    state: "New York",
-    coordinates: [-73.98393399979334, 40.75533300052329],
-  },
-  {
-    location: "Essex St & Delancey St at SE corner",
-    city: "Manhattan",
-    state: "New York",
-    coordinates: [-73.9882730001973, 40.718207001246554],
-  },
-];
 
 const MapPage = () => {
+  const {allJams}=useContext(JamContext)
+  console.log(allJams)
   const { isLoadingLocation,userLocation,setMap,setIsMapReady } = useContext(AuthContext);
-  
+  const [markers,setMarkers]=useState([])
   const mapDiv = useRef(null)
 
   useLayoutEffect(()=>{
@@ -56,13 +39,23 @@ const MapPage = () => {
       
     }
   },[isLoadingLocation])
+
+
+
+
   if(isLoadingLocation){
     return(<Loading/>)
   }
   return (
     <div className="mapa-container" ref={mapDiv}>
      <BtnMyLocation/>
-     <SearchBar/>
+     <SearchBar 
+        style={{
+          position:'fixed',
+          top:150,
+          zIndex: 950,
+        width:'300px' }
+        }/>
     </div>
   );
 };

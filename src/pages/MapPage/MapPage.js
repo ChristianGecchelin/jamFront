@@ -1,8 +1,16 @@
-import React, { useRef, useEffect, useState } from "react";
-import Map, { Marker } from "react-map-gl";
+import React, { useRef, useEffect, useState,useContext, useLayoutEffect } from "react";
+import { AuthContext } from "../../context/auth.context";
+import mapboxgl,{Map,Marker,Popup} from "mapbox-gl";
+import BtnMyLocation from "../../components/BtnMyLocation/BtnMyLocation";
+import Loading from '../../components/Loading/Loading'
+import SearchBar from '../../components/SearchBar/SearchBar'
+
 import "./MapPage.css";
 import pin from "../../assets/pin.png";
+
+
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
+mapboxgl.accessToken=MAPBOX_TOKEN
 const data = [
   {
     location: "Manhattan Ave & Norman Ave at NE corner",
@@ -25,25 +33,36 @@ const data = [
 ];
 
 const MapPage = () => {
-  const [viewState, setViewState] = useState({
-    longitude: 2.6487185,
-    latitude: 41.7600566,
-    zoom: 3.5,
-  });
+  const { isLoadingLocation,userLocation,setMap,setIsMapReady } = useContext(AuthContext);
+  
+  const mapDiv = useRef(null)
 
+  useLayoutEffect(()=>{
+    if(!isLoadingLocation){
+      const map=new Map({
+        container:mapDiv.current ,
+        style:'mapbox://styles/mapbox/dark-v10',
+        center:userLocation,
+        zoom:14
+      })
+      setMap(map)
+      setIsMapReady(true)
+      const myLocationPopup=new Popup()
+      .setHTML(`<h4>Aqui hola</h4><p>En algun lugar del mundo</p>`)
+      new Marker()
+      .setLngLat(map.getCenter())
+      .setPopup(myLocationPopup)
+      .addTo(map)
+      
+    }
+  },[isLoadingLocation])
+  if(isLoadingLocation){
+    return(<Loading/>)
+  }
   return (
-    <div className="mapa-container">
-      <Map
-        {...viewState}
-        onMove={(evt) => setViewState(evt.viewState)}
-        style={{ width: "100vw", height: "100vh" }}
-        mapStyle="mapbox://styles/mapbox/streets-v9"
-        mapboxAccessToken={MAPBOX_TOKEN}
-      >
-        <Marker longitude={-100} latitude={40} anchor="bottom">
-          <img src={pin} width="50px" />
-        </Marker>
-      </Map>
+    <div className="mapa-container" ref={mapDiv}>
+     <BtnMyLocation/>
+     <SearchBar/>
     </div>
   );
 };

@@ -29,7 +29,8 @@ function JamListPage(props) {
       }
     });
     setjams(updatedJams);
-    setJamsForHome(updatedJams);
+    if(setJamsForHome){
+        setJamsForHome(updatedJams);}
   };
 
   useEffect(() => {
@@ -48,6 +49,7 @@ function JamListPage(props) {
     setjams(allJams);
     setCloneJams(allJams);
   }, [allJams]);
+  console.log(jams)
 
   return (
     <Box>

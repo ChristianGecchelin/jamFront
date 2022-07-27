@@ -9,7 +9,9 @@ function JamFilterByDate(props) {
   const handleDate = (e) => {
     searchJams(new Date(e));
     setSearchDate(new Date(e));
-    setSearchDateHome(new Date(e));
+    if (setSearchDateHome) {
+      setSearchDateHome(new Date(e));
+    }
   };
 
   useEffect(() => {

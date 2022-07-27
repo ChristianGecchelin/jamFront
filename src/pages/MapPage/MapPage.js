@@ -45,6 +45,7 @@ const MapPage = (props) => {
     setjams(updatedJams);
     setJamsForHome(updatedJams);
   };
+  
 
   const deleteFilters = () => {
     setjams(allJams);

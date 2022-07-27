@@ -8,7 +8,7 @@ import section1Image from "../../assets/home1.jpeg";
 function HomePage() {
   const { allJams } = useContext(JamContext);
   const [jamsForHome, setJamsForHome] = useState(allJams);
-  const [searchDate,setSearchDate] = useState(new Date())
+  const [searchDate, setSearchDate] = useState(new Date());
   useEffect(() => {
     setJamsForHome(allJams);
   }, [allJams]);
@@ -35,7 +35,12 @@ function HomePage() {
             searchDate={searchDate}
           />
         </div>
-        <MapPage setJamsForHome={setJamsForHome} jamsForHome={jamsForHome} setSearchDate={setSearchDate} searchDate={searchDate} />
+        <MapPage
+          setJamsForHome={setJamsForHome}
+          jamsForHome={jamsForHome}
+          setSearchDate={setSearchDate}
+          searchDate={searchDate}
+        />
       </div>
     </div>
   );

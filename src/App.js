@@ -3,7 +3,7 @@ import "./App.css";
 import { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/HomePage/HomePage";
 import MapPage from "./pages/MapPage/MapPage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";

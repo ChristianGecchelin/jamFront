@@ -21,7 +21,8 @@ import pin from "../../assets/pin.png";
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 mapboxgl.accessToken = MAPBOX_TOKEN;
 
-const MapPage = () => {
+const MapPage = (props) => {
+  const { jamsForHome, setJamsForHome, searchDate, setSearchDate } = props;
   const { allJams } = useContext(JamContext);
   const { user, isLoadingLocation, userLocation, setMap, setIsMapReady, map } =
     useContext(AuthContext);
@@ -29,7 +30,6 @@ const MapPage = () => {
   const mapDiv = useRef(null);
   const [jams, setjams] = useState([]);
   const [cloneJams, setCloneJams] = useState(jams);
-
   const searchJamsByDate = (date) => {
     //Convert the date without the hours
     let convertedDate = date.setHours(0, 0, 0, 0);
@@ -43,16 +43,18 @@ const MapPage = () => {
       }
     });
     setjams(updatedJams);
+    setJamsForHome(updatedJams);
   };
 
-  const deleteFilters=()=>{
-    setjams(allJams)
-  }
+  const deleteFilters = () => {
+    setjams(allJams);
+    setJamsForHome(allJams);
+    setSearchDate(new Date())
+  };
   const createMarkersJams = (array) => {
     markers.forEach((marker) => marker.remove());
     const newMarkers = [];
     setMarkers(newMarkers);
-    console.log(markers);
     for (const jam of array) {
       if (typeof jam.location.center !== undefined) {
         const [lng, lat] = jam.location.center;
@@ -97,11 +99,15 @@ const MapPage = () => {
     setjams(allJams);
     setCloneJams(allJams);
     createMarkersJams(allJams);
-    console.log(jams);
   }, [allJams]);
   useEffect(() => {
     createMarkersJams(jams);
   }, [jams]);
+
+  useEffect(() => {
+    setjams(jamsForHome);
+  }, [jamsForHome]);
+
   if (isLoadingLocation) {
     return <Loading />;
   }
@@ -109,10 +115,12 @@ const MapPage = () => {
     <div className="mapa-container" ref={mapDiv}>
       <BtnMyLocation />
       <JamFilterByDate
+        setSearchDateHome={setSearchDate}
+        searchDateHome={searchDate}
         style={{ zIndex: 500, width: "500px", backgroundColor: "white," }}
         searchJams={searchJamsByDate}
         className="MuiFormControl-root"
-      /> 
+      />
       {/*    <SearchBar
         style={{
           position: "fixed",
@@ -121,7 +129,18 @@ const MapPage = () => {
           width: "300px",
         }}
       />*/}
-      <Button style={{ cursor:'pointer',zIndex: 500, width: "500px", backgroundColor: "white," }} onClick={deleteFilters} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+      <Button
+        style={{
+          cursor: "pointer",
+          zIndex: 500,
+          width: "60%",
+          backgroundColor: "white,",
+        }}
+        onClick={deleteFilters}
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+      >
         Borrar filtros
       </Button>
     </div>

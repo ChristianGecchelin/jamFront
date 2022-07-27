@@ -2,20 +2,13 @@
 .MuiFormControl-root{
     z-index: 500;
     background-color: white;
-    width: 500px;
+    width: 60%;
     position: fixed
 
 }
-.container-section{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100vw;
-    align-items: center;
-    justify-content: center;
-}
-.container-info{
-    width: 25%;
+.MuiInputAdornment-root{
+    height: auto !important;
+    max-height: none !important;
 }
 .mapa-container{
     overflow: hidden;

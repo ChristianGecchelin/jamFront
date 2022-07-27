@@ -16,6 +16,7 @@ function JamListPage() {
     const [cloneJams,setCloneJams] = useState(jams)
     const { user } = useContext(AuthContext)  
     const {allJams} = useContext(JamContext)  
+    
     const searchJamsByDate = (date) => {
         //Convert the date without the hours
         let convertedDate = date.setHours(0,0,0,0)

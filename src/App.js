@@ -53,8 +53,7 @@ function App() {
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <ResponsiveAppBar />
       <Routes>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" element={<HomePage/>} />
         <Route exact path="/map" element={<MapPage />} />
 
         <Route

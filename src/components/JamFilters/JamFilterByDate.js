@@ -7,7 +7,6 @@ function JamFilterByDate(props) {
     const [searchDate,setSearchDate] = useState(new Date())
 
     const handleDate = (e) => {
-        console.log(e)
         searchJams(new Date(e))
         setSearchDate(new Date(e))
     }

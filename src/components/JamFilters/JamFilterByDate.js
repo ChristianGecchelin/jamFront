@@ -3,9 +3,9 @@ import React from "react";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 
 function JamFilterByDate(props) {
-  const { searchJams, searchDateHome, setSearchDateHome } = props;
+  const { searchJams, searchDateHome, setSearchDateHome,todayDate } = props;
   const [searchDate, setSearchDate] = useState(new Date());
-
+console.log(todayDate)
   const handleDate = (e) => {
     searchJams(new Date(e));
     setSearchDate(new Date(e));

@@ -33,6 +33,7 @@ const MapPage = (props) => {
   const mapDiv = useRef(null);
   const [jams, setjams] = useState(allJams);
   const [cloneJams, setCloneJams] = useState(jams);
+  const [todayDate,setTodayDate]=useState(new Date())
   const searchJamsByDate = (date) => {
     //Convert the date without the hours
     let convertedDate = date.setHours(0, 0, 0, 0);
@@ -55,9 +56,11 @@ const MapPage = (props) => {
     setjams(allJams);
     if (setJamsForHome) {
       setJamsForHome(allJams);
+      setSearchDate(new Date());
     }
-    setSearchDate(new Date());
+    setTodayDate(todayDate)
   };
+
   const createMarkersJams = (array) => {
     markers.forEach((marker) => marker.remove());
     const newMarkers = [];
@@ -119,16 +122,25 @@ const MapPage = (props) => {
   }, [jams]);
 
   useEffect(() => {
-    setjams(jamsForHome);
+    if(jamsForHome){
+
+      setjams(jamsForHome);
+    }
   }, [jamsForHome]);
 
   if (isLoadingLocation) {
     return <Loading />;
   }
   return (
-    <div className="mapa-container" ref={mapDiv}>
+    <div
+      className={`${
+        Object.keys(props).length > 0 ? "mapa-container" : "mapa-container2"
+      }  `}
+      ref={mapDiv}
+    >
       <BtnMyLocation />
       <JamFilterByDate
+      todayDate={todayDate}
         setSearchDateHome={setSearchDate}
         searchDateHome={searchDate}
         style={{ zIndex: 500, width: "500px", backgroundColor: "white," }}

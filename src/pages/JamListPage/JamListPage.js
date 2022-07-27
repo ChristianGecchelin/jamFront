@@ -52,7 +52,15 @@ function JamListPage(props) {
   console.log(jams)
 
   return (
-    <Box>
+    <Box sx={{
+        width: '100%',
+        height:'500px',
+        display:'flex',
+        flexDirection:'column',
+        alignItems:'center',
+        justifyContent:'space-around',
+        
+      }}>
       <JamFilterByDate searchJams={searchJamsByDate} 
             setSearchDateHome={setSearchDate}
             searchDateHome={searchDate}/>

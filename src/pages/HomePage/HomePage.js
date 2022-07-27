@@ -18,11 +18,11 @@ function HomePage() {
         <h1>Jam Sessions</h1>
         <h3>Don't be shy, come to play with us</h3>
         <img src={section1Image} alt="" style={{ opacity: 0.91 }} />
-        <Link to="/signup">
-          <button>Signup</button>
+        <Link to="/signup" className="button-awesome">
+          Signup
         </Link>
-        <a href="#section2">
-          <button>Jams</button>
+        <a className="button-awesome" href="#section2">
+          Jams
         </a>
       </section>
       <div className="section-jams" id="section2">

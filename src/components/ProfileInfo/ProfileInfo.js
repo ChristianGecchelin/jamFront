@@ -12,12 +12,12 @@ import {AuthContext} from '../../context/auth.context'
 import { 
     Avatar, IconButton,Box,
     Chip, Typography,Paper,
-    Button, TextField, ImageList, Modal, ClickAwayListener 
+    Button, TextField, Modal 
 } from '@mui/material';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 function ProfileInfo(props){
-    const{user}=useContext(AuthContext)
+    const {user} = props
     const [open, setOpen] = useState(false);
     const [editMode,setEditMode] = useState(false)
     const [about,setAbout] = useState("")
@@ -26,16 +26,12 @@ function ProfileInfo(props){
     const [image,SetImage] = useState("")
     
     useEffect(()=>{
-        axios
-        .get(`${process.env.REACT_APP_API_URL}/users/${user._id}`)
-        .then((foundUser)=>{
-            const user = foundUser.data
+            console.log(user)
             setCurrentUser(user)
             setAbout(user.about)
             SetImage(user.picture)
             setInstruments(user.instruments)
-        })
-    },[])
+        },[user])
 
     const handleOpen = () => {
         setOpen(true);
@@ -49,7 +45,6 @@ function ProfileInfo(props){
 
     function handleSubmit(e){
         e.preventDefault()
-        console.log(instruments)
         const requestBody = {instruments:instruments,about,picture:image}
         axios
         .put(`${process.env.REACT_APP_API_URL}/users/${user._id}`, requestBody)
@@ -206,7 +201,7 @@ function ProfileInfo(props){
             </Box>
             
             )
-    }
+            }
     
 }
 

@@ -19,9 +19,13 @@ import JamListPage from './pages/JamListPage/JamListPage';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import JamDetailPage from './pages/JamDetailPage/JamDetailPage';
+
+
 //MATERIAL UI
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import ResponsiveAppBar from './components/ResponsiveNavBar';
+import ProfilePage from './pages/Profile/ProfilePage';
+
 const customTheme = createTheme({
 	//Color settings
 	palette:{
@@ -127,8 +131,7 @@ function App() {
 					path="/profile"
 					element={
 						<PrivateRoute>
-							{user.type==='host'?<ProfileHost />:
-							<ProfileMusician/>}
+							<ProfilePage/>
 						</PrivateRoute>
 					}
 				/>}

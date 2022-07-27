@@ -15,6 +15,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import { Link } from "react-router-dom";
+import LoginIcon from '@mui/icons-material/Login';
+import axios from "axios";
+
 
 const pages = [{label:"Jams",link:"/jams"},
                 {label:"Map",link:"/map"},];
@@ -27,6 +30,8 @@ const ResponsiveAppBar = () => {
     const { isLoggedIn, user, logOutUser } = useContext(AuthContext)    
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [userMongo,setUserMongo] = React.useState(null);
+    const [isPicture,setIsPicture] = React.useState(false);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -43,9 +48,27 @@ const ResponsiveAppBar = () => {
         setAnchorElUser(null);
     };
 
+    function getCurrentUserInDb (user) {
+		axios
+		.get(`${process.env.REACT_APP_API_URL}/users/${user._id}`)
+		.then((foundUser)=>{
+			setUserMongo(foundUser.data)
+		})
+	}
+
+    function handleChangePicture () {
+        isPicture ? (setIsPicture(false)) : (setIsPicture(true))
+    }
+
+    React.useEffect(()=>{
+        if(user){
+            getCurrentUserInDb (user)
+        }
+    },[user])
+
     return (
         <>
-            <AppBar position="static">
+            <AppBar position="static" sx={{backgroundColor:"primary.main"}}>
             <Container maxWidth="xl" >
                 <Toolbar disableGutters>
                 <MusicNoteIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1,  }} />
@@ -141,7 +164,9 @@ const ResponsiveAppBar = () => {
                 <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                        {userMongo ? 
+                        (<Avatar alt="" src={userMongo.picture}></Avatar>):
+                        (<LoginIcon/>)}
                     </IconButton>
                     </Tooltip>
                     <Menu
@@ -170,6 +195,7 @@ const ResponsiveAppBar = () => {
                         onClick={()=>{
                             logOutUser()
                             handleCloseUserMenu()
+                            handleChangePicture()
                         }}>
                         <Typography textAlign="center">Logout</Typography>
                         </MenuItem>
@@ -188,6 +214,7 @@ const ResponsiveAppBar = () => {
                 </Toolbar>
             </Container>
             </AppBar>
+            
         </>
     );
 };

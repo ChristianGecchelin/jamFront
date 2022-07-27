@@ -8,6 +8,7 @@ function AuthProviderWrapper(props) {
 	const [ isLoggedIn, setIsLoggedIn ] = useState(false);
 	const [ isLoading, setIsLoading ] = useState(true);
 	const [ user, setUser ] = useState(null);
+	const [mongoUser,setMongoUser] = useState([]);
 	// const [ error, setError ] = useState();
 
 	const verifyStoredToken = () => {
@@ -25,6 +26,7 @@ function AuthProviderWrapper(props) {
 					setUser(user);
 					setIsLoggedIn(true);
 					setIsLoading(false);
+					
 				})
 				.catch((error) => {
 					// If the server sends an error response (invalid token) ❌
@@ -62,6 +64,7 @@ function AuthProviderWrapper(props) {
 	useEffect(() => {
 		verifyStoredToken();
 	}, []);
+
 
 	// useEffect(
 	// 	() => {

@@ -22,13 +22,16 @@ const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 mapboxgl.accessToken = MAPBOX_TOKEN;
 
 const MapPage = (props) => {
-  const { jamsForHome, setJamsForHome, searchDate, setSearchDate } = props;
-  const { allJams } = useContext(JamContext);
+  console.log(Object.keys(props).length);
+  if (Object.keys(props).length > 0) {
+    var { jamsForHome, setJamsForHome, searchDate, setSearchDate } = props;
+  }
+  const { allJams, getAllJams } = useContext(JamContext);
   const { user, isLoadingLocation, userLocation, setMap, setIsMapReady, map } =
     useContext(AuthContext);
   const [markers, setMarkers] = useState([]);
   const mapDiv = useRef(null);
-  const [jams, setjams] = useState([]);
+  const [jams, setjams] = useState(allJams);
   const [cloneJams, setCloneJams] = useState(jams);
   const searchJamsByDate = (date) => {
     //Convert the date without the hours
@@ -43,14 +46,17 @@ const MapPage = (props) => {
       }
     });
     setjams(updatedJams);
-    setJamsForHome(updatedJams);
+    if (setJamsForHome) {
+      setJamsForHome(updatedJams);
+    }
   };
-  
 
   const deleteFilters = () => {
     setjams(allJams);
-    setJamsForHome(allJams);
-    setSearchDate(new Date())
+    if (setJamsForHome) {
+      setJamsForHome(allJams);
+    }
+    setSearchDate(new Date());
   };
   const createMarkersJams = (array) => {
     markers.forEach((marker) => marker.remove());
@@ -97,12 +103,19 @@ const MapPage = (props) => {
   }, [isLoadingLocation]);
 
   useEffect(() => {
+    getAllJams();
+  }, []);
+
+  useEffect(() => {
     setjams(allJams);
     setCloneJams(allJams);
     createMarkersJams(allJams);
   }, [allJams]);
+
   useEffect(() => {
-    createMarkersJams(jams);
+    if (jams instanceof Array) {
+      createMarkersJams(jams);
+    }
   }, [jams]);
 
   useEffect(() => {

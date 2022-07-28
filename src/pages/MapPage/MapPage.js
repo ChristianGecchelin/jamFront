@@ -67,7 +67,7 @@ const MapPage = (props) => {
         marker.remove();
       }
     }
-    let newMarkers = [];
+    const newMarkers = [];
     setMarkers(newMarkers);
     for (const jam of array) {
       if (typeof jam.location.center !== undefined) {
@@ -87,54 +87,52 @@ const MapPage = (props) => {
         newMarkers.push(newMarker);
       }
     }
-    setMarkers(newMarkers);
   };
 
   useLayoutEffect(() => {
-    if (!isLoadingLocation) {
-      const map = new Map({
-        container: mapDiv.current,
-        style: "mapbox://styles/mapbox/dark-v10",
-        center: userLocation,
-        zoom: 14,
-      });
-      setMap(map);
-      setIsMapReady(true);
-      const myLocationPopup = new Popup().setHTML(
-        `<h4>Aqui hola</h4><p>En algun lugar del mundo</p>`
-      );
-      new Marker()
-        .setLngLat(map.getCenter())
-        .setPopup(myLocationPopup)
-        .addTo(map);
+    if(user){
+      if (!isLoadingLocation) {
+        const map = new Map({
+          container: mapDiv.current,
+          style: "mapbox://styles/mapbox/dark-v10",
+          center: userLocation,
+          zoom: 14,
+        });
+        setMap(map);
+        setIsMapReady(true);
+        const myLocationPopup = new Popup().setHTML(
+          `<h4>${user.username}</h4><p>Aquí estoy</p>`
+        );
+        new Marker({color: "#5a2065"})
+          .setLngLat(map.getCenter())
+          .setPopup(myLocationPopup)
+          .addTo(map);
     }
-  }, [isLoadingLocation]);
+    }
+  }, [user]);
 
-console.log(filtros)
   useEffect(() => {
     getAllJams();
-    setTimeout(()=>{
-      setFiltros(true)
-    },3000)
+   
   }, []);
 
   useEffect(() => {
-    console.log("estoy en alljams");
     setjams(allJams);
     setCloneJams(allJams);
     createMarkersJams(allJams);
   }, [allJams]);
 
   useEffect(() => {
-    console.log("estoy en jams");
     if (jams instanceof Array) {
       setjams(jams);
       createMarkersJams(jams);
+      setTimeout(()=>{
+        setFiltros(true)
+      },3000)
     }
   }, [jams]);
 
   useEffect(() => {
-    console.log("estoy en alljams");
     if (jamsForHome) {
       setjams(jamsForHome);
     }

@@ -179,7 +179,7 @@ const MapPage = (props) => {
         variant="contained"
         sx={{ mt: 3, mb: 2 }}
       >
-        Borrar filtros
+        Clean up filters
       </Button>
     </div>
   );

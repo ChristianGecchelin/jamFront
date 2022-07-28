@@ -30,8 +30,8 @@ function JamDetailPage () {
     const [musicians, setMusicians] = useState([])
     const [date,setDate] = useState("")
     const [categories,setCategories] = useState([])
-    const [currentUser,setCurrentUser] = useState([])
-    const navigate = useNavigate()
+    const [hostPicture,setHostPicture] = useState([])
+    const [hostUsername,setHostUsername] = useState([])
     const {setAllJams} = useContext(JamContext)
 
     useEffect(()=>{
@@ -46,14 +46,24 @@ function JamDetailPage () {
             const date = new Date(jamFound.date);
             const formatedDate = format(date, "dd-MM-yyyy");
             setDate(formatedDate)
+            setHostPicture(jamFound.host.picture)
+            setHostUsername(jamFound.host.username)
             })
             .catch(err=>console.log(err))
-        
         },[])
     
         return(
-            <>
-            <Box sx={{ width: '100%', maxWidth: 500 }}>
+            <Box 
+            display='flex'
+            flexDirection='column'
+            alignItems='center'
+            sx={{ width: '100%', m:2}}
+            >
+            <Box 
+            display='flex'
+            flexDirection='column'
+            alignItems='center'
+            sx={{ width: '60%', }}>
                 <Stack direction="row" spacing={2} id="stackDate">
                     <EventIcon sx={{ color:'red' }}/>
                     <Typography sx={{color:'red'}} variant="h5" gutterBottom component="div">
@@ -68,69 +78,65 @@ function JamDetailPage () {
                     <Typography variant="h5" gutterBottom component="div">
                         Organized by :
                     </Typography>
+                    
                     <Chip
-                        avatar={<Avatar>{host.username}</Avatar>}
+                        avatar={<Avatar>{hostPicture}</Avatar>}
                         label={host.username}
                         variant="outlined"
                     />
-                    {host.rating && 
-                    <Chip icon={<StarRateIcon/>} label={host.rating}/>                
-                    }
                 </Stack>}
             </Box>
             
-            <Box sx={{ width: '100%', maxWidth: 400 }}>
-                <Paper elevation={3}>
-                    <Typography variant="h3" gutterBottom component="div">
-                        Informaciones
+            <Box 
+            sx={{ 
+                width: '60%' ,
+                m:2,
+                }}>
+                <Paper elevation={3} sx={{p:2}}>
+                    <Typography variant="h6" gutterBottom component="div" sx={{ 
+                        m:1}}>
+                        Details
                     </Typography>
-                    {musicians.length > 0 && 
-                    <AvatarGroup max={4}>
+                    {musicians.length > 0 &&
+                    <Box
+
+                        sx={{ 
+                        m:1}}
+                    >
+                    <Typography variant="subtitle1" gutterBottom component="div">
+                        Musicians
+                    </Typography> 
+                    <Stack direction="row" spacing={2}>
                         {musicians.map((musician)=>(
-                            <Avatar alt="musician face" src={musician.picture} />
+                            <Avatar alt="musician face" src={musician.picture} />                            
                         ))}
-                    </AvatarGroup>
+                    </Stack>
+                    </Box>
                     }
                     {categories.length > 0 && 
-                    <Stack direction="row" spacing={1}>
+                    <Stack direction="row" spacing={1} sx={{ 
+                        m:1}}>
                         {categories.map((category)=>(
                             <Chip label={category.label}/>
                         ))}
                     </Stack>
                     }
-                    {jam.limit ? 
-                    (<Stack direction="row" spacing={2}>
-                        <LockIcon/>
-                        <Typography variant="body1" gutterBottom component="div">
-                            Aforo limitado
-                        </Typography>
-                    </Stack>):
-                    (<Stack direction="row" spacing={2}>
-                        <LockOpenIcon/>
-                        <Typography variant="body1" gutterBottom component="div">
-                            Sin limite de aforo
-                        </Typography>
-                    </Stack>)}
                     {jam.description &&
-                        <>
+                        <Box
+                        sx={{ 
+                        m:1}}>
                         <Typography variant="subtitle1" gutterBottom component="div">
-                            Acerca del evento
+                            About
                         </Typography>
-                        <Typography variant="body1" gutterBottom component="div">
+                        <Typography variant="body2" gutterBottom component="div">
                             {jam.description}
                         </Typography>
-                        </>
+                        </Box>
                     }
                 </Paper>
             </Box>
-
-            <Box sx={{ width: '100%', maxWidth: 400 }}>
-                <Paper elevation={3}>
-                    <h4>MAP</h4>
-                </Paper>
-            </Box>
         
-        </>
+        </Box>
     )
     }
     

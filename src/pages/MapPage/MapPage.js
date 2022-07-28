@@ -35,6 +35,7 @@ const MapPage = (props) => {
   const [todayDate, setTodayDate] = useState(new Date());
 
   const searchJamsByDate = (date, cloneJams) => {
+    debugger
     //Convert the date without the hours
     let convertedDate = new Date(date).setHours(0, 0, 0, 0);
     const updatedJams = cloneJams.filter((cloneJam) => {
@@ -63,7 +64,9 @@ const MapPage = (props) => {
 
   const createMarkersJams = (array) => {
     debugger;
+
     markers.forEach((marker) => marker.remove());
+
     let newMarkers = [];
     setMarkers(newMarkers);
     for (const jam of array) {
@@ -147,7 +150,7 @@ const MapPage = (props) => {
         searchDateHome={searchDate}
         style={{ zIndex: 500, width: "500px", backgroundColor: "white," }}
         searchJams={(e) => {
-          searchJamsByDate(e, cloneJams);
+          searchJamsByDate(e, jams);
         }}
         className="MuiFormControl-root"
       />

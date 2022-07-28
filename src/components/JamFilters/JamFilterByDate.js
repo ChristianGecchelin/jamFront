@@ -10,6 +10,7 @@ function JamFilterByDate(props) {
     const [date,setDate] = useState([])
 
     const handleDate = (e) => {
+      debugger
         searchJams((e.target.value))
         setSearchDate((e.target.value))
         setDate(e.target.value)
@@ -19,7 +20,10 @@ function JamFilterByDate(props) {
   
 
   useEffect(() => {
-    setDate(searchDateHome);
+    debugger
+    if(searchDateHome){
+      setDate(searchDateHome);
+    }
   }, [searchDateHome]);
 
  /*  return <KeyboardDatePicker value={searchDate} onChange={handleDate} />; */

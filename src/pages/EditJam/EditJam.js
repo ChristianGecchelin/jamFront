@@ -2,11 +2,18 @@ import { useParams,useNavigate } from "react-router-dom";
 import { useState, useEffect,useContext } from "react";
 import { AuthContext } from '../../context/auth.context';
 import axios from 'axios';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import JamDatePicker from '../../components/DatePicker';
+
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated';
-import {DatePicker} from '@material-ui/pickers';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Autocomplete from '@mui/material/Autocomplete';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 
 const API_URL = "http://localhost:5005";
 
@@ -60,49 +67,77 @@ function EditJam () {
     }
 
     return (
-        <Form onSubmit={handleSubmit} id="form-task">
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Name your jam</Form.Label>
-                <Form.Control type="text" name="name" value={name}
-                placeholder="Enter the name of your project" 
-                onChange={(e) => setName(e.target.value)}
-                />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Date</Form.Label>
-                <DatePicker value={date} onChange={setDate} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Description</Form.Label>
-                <Form.Control type="text" name="description" value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Limit</Form.Label>
-                <Form.Check 
-                type="checkbox" 
-                label="Limit"
-                checked={limit}
-                value={limit}
-                onChange={(e) => setLimit(e.target.value)}
-                />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Categories</Form.Label>
-                <Select
-                closeMenuOnSelect={false}
-                components={animatedComponents}
-                defaultValue={[musicalGenre[8]]}
-                isMulti
-                options={musicalGenre}
-                onChange={(e) => setCategories(e)}
-                />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-                Submit
-            </Button>
-        </Form>
+        <Container component="main" maxWidth="xs" sx={{ bgcolor: 'primary.light' }}>
+            <CssBaseline />
+            <Box
+			sx={{
+				marginTop: 8,
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
+			}}
+			>
+                <Typography component="h1" variant="h5">
+                    Edit you jam
+                </Typography>
+                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+						<TextField
+						name="name"
+						required
+						fullWidth
+						id="name"
+						label="Name your jam"
+						autoFocus
+						value={name} 
+						onChange={(e) => setName(e.target.value)}
+						/>
+					</Grid>
+                    <Grid item xs={12}>
+                        <JamDatePicker value={date} set={(e) => setDate (e.target.value)}/>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Autocomplete
+                        disablePortal
+                        id="combo-box-demo"
+                        renderInput={(params) => <TextField {...params} label="Address" />}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+						<TextField
+						required
+						fullWidth
+						name="description"
+						label="Description"
+						type="text"
+						id="description"
+						value={description} 
+						onChange={(e) => setDescription(e.target.value)}
+						/>
+					</Grid>
+                    <Grid item xs={12}>
+                        <Select
+                        closeMenuOnSelect={false}
+                        components={animatedComponents}
+                        defaultValue={[musicalGenre[8]]}
+                        isMulti
+                        options={musicalGenre}
+                        onChange={(e) => setCategories(e)}
+                        />
+					</Grid>
+                </Grid>
+                <Button
+				type="submit"
+				fullWidth
+				variant="contained"
+				sx={{ mt: 3, mb: 2 }}
+				>
+					Submit
+				</Button>
+                </Box>
+            </Box>
+        </Container>
     
     )
 }

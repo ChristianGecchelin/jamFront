@@ -9,7 +9,7 @@ import ButtonIn from '../ButtonIn/ButtonIn';
 //Material UI
 import {Paper, Divider, Box, List,ListItem,ListItemText,Typography   } from '@mui/material';
 import { Stack } from 'react-bootstrap';
-
+import ButtonGoToEdit from '../ButtonGoToEdit/ButtonGoToEdit';
 
 function ProfileJamList (props) {
     const{createdJams,
@@ -35,7 +35,10 @@ function ProfileJamList (props) {
             <ListItem
             key={jam._id}
             secondaryAction={
+                <Stack direction='row' spacing={1}>
                 <ButtonGoToDetails jamId={jam._id}/>
+                <ButtonGoToEdit jamId={jam._id}/>
+                </Stack>
             }
             >
             <ListItemText primary={`${jam.name} on ${jam.date}`} />

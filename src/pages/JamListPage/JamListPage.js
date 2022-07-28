@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useContext } from "react"; // <== IMPORT
 import { List, ListItem, ListItemText, Stack } from "@mui/material";
 import axios from "axios";
@@ -11,6 +10,9 @@ import Box from "@mui/material/Box";
 import { JamContext } from "../../context/jams.context";
 import { searchJamsByDate } from "../../services/jams.services";
 import ButtonOut from "../../components/ButtonOut/ButtonOut";
+import EventIcon from '@mui/icons-material/Event';
+import Typography from '@mui/material/Typography';
+import { format } from "date-fns";
 import ButtonGoToDetails from "../../components/ButtonGoToDetails/ButtonGoToDetails";
 import ButtonIn from "../../components/ButtonIn/ButtonIn";
 const API_URL = "http://localhost:5005";
@@ -85,19 +87,26 @@ function JamListPage(props) {
         <List sx={{ width: "100%", bgcolor: "background.paper" }}>
           {jams.map((jam) => (
             <>
-              <ListItem
-                key={jam._id}
-                secondaryAction={
-                  <Stack direction="row">
-                    <ButtonGoToDetails jamId={jam._id} />
-                    <ButtonIn jamId={jam._id} user={user} />
-                    <ButtonOut jamId={jam._id} user={user} />
-                  </Stack>
-                }
-              >
-                <ListItemText primary={`${jam.name}        ${jam.date}`} />
-              </ListItem>
-              <Divider />
+            <ListItem
+            key={jam._id}
+            secondaryAction={
+                <Stack direction="row">
+                <ButtonGoToDetails jamId={jam._id}/>
+                <ButtonIn jamId={jam._id} user={user}/>
+                <ButtonOut jamId={jam._id} user={user}/>
+                </Stack>
+            }
+            >
+            <ListItemText secondary={`${jam.name}`} 
+            primary={<Stack direction="row" spacing={2} id="stackDate">
+                    <EventIcon sx={{ color:'red' }}/>
+                    <Typography sx={{color:'red'}} variant="body2" gutterBottom component="div">
+                        {format(new Date(jam.date),'dd-MM-yyyy')}
+                    </Typography>
+            </Stack>}
+            />
+            </ListItem>
+            <Divider/>
             </>
           ))}
         </List>

@@ -26,7 +26,7 @@ function HomePage() {
         </a>
       </section>
       <div className="section-jams" id="section2">
-        <h2>Our Jams</h2>
+        <h2>Find your next Jam</h2>
         <div className="container-info">
           <JamListPage
             setJamsForHome={setJamsForHome}

@@ -174,8 +174,9 @@ console.log(filtros)
         style={{
           cursor: "pointer",
           zIndex: 500,
-          width: "60%",
+          width: "100%",
           backgroundColor: "white,",
+          margin:0
         }}
         onClick={deleteFilters}
         fullWidth

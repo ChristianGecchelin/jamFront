@@ -6,19 +6,28 @@ import { useState, useContext, useEffect} from "react";
 import {AuthContext} from '../../context/auth.context'
 import ButtonGoToDetails from '../ButtonGoToDetails/ButtonGoToDetails';
 import ButtonOut from '../ButtonOut/ButtonOut';
-import ButtonIn from '../ButtonIn/ButtonIn'; 
+import ButtonIn from '../ButtonIn/ButtonIn';
 //Material UI
-import {Paper, Divider, Box, List,ListItem,ListItemText,Typography   } from '@mui/material';
+import {Paper, Divider, Box, List,ListItem,ListItemText,Typography,Button   } from '@mui/material';
 import { Stack } from 'react-bootstrap';
 import ButtonGoToEdit from '../ButtonGoToEdit/ButtonGoToEdit';
 import ButtonGoToCreate from '../ButtonGoToCreate/ButtonGoToCreate';
 import EventIcon from '@mui/icons-material/Event';
+
+
+const API_URL = process.env.REACT_APP_API_URL
 
 function ProfileJamList (props) {
     const{createdJams,
         setCreatedJams,
         registeredJams,
         setRegisteredJams, user}=props
+
+    function handleDelete (jamId) {
+        axios.delete(`${API_URL}/jams/${jamId}`)
+        .then((response)=>console.log(response))
+    }
+        
     return(
         <Box
             display='flex'
@@ -67,7 +76,10 @@ function ProfileJamList (props) {
                 >                
                     <ButtonGoToDetails jamId={jam._id}/>
                     <ButtonGoToEdit jamId={jam._id}/>
-                    
+                    <Button onClick={()=>{handleDelete(jam._id)}}
+                    variant="contained" color="error">
+                        Delete
+                    </Button> 
                 </Box>
             }
             >

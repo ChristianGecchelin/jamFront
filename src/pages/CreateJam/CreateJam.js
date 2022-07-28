@@ -45,7 +45,6 @@ function CreateJam () {
     const handleSubmit = (e) => {
         e.preventDefault();
         const requestBody = {name, date:new Date(date), description, limit, categories, userId:user._id}
-        console.log(typeof requestBody)
         axios
         .post(`${API_URL}/jams`, requestBody)
         .then((res)=>{
@@ -59,7 +58,6 @@ function CreateJam () {
         .then(()=>{
             axios.get(`${API_URL}/jams`)
             .then((jams)=>{
-                console.log(jams)
                 setAllJams(jams.data)
             })
         })

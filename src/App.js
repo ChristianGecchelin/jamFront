@@ -2,22 +2,17 @@ import './App.css';
 
 import {useContext} from 'react'
 import { Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import MapPage from './pages/MapPage';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import PrivateRoute from './components/PrivateRoute'; 
 import AnonRoute from './components/AnonRoute'; 
-import ProfileHost from './pages/ProfileHost/ProfileHost';
-import ProfileMusician from './pages/ProfileMusician/ProfileMusician';
+
 import {AuthContext} from './context/auth.context';
-import NewPlace from './pages/NewPlace/NewPlace'
 import CreateJam from './pages/CreateJam/CreateJam';
 import EditJam from './pages/EditJam/EditJam';
 import JamListPage from './pages/JamListPage/JamListPage';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import JamDetailPage from './pages/JamDetailPage/JamDetailPage';
 
 
@@ -132,16 +127,6 @@ function App() {
 						</PrivateRoute>
 					}
 				/>}
-
-				<Route
-					exact
-					path="/newPlace"
-					element={
-						<PrivateRoute>
-							<NewPlace />
-						</PrivateRoute>
-					}
-				/>
 				
 				</Routes>
 			</>	

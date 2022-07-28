@@ -3,29 +3,29 @@ import axios from 'axios';
 const API_URL = process.env.REACT_APP_API_URL
 
 
-function registerToJam(jamId,user) {
-	axios.get(`${API_URL}/jams/${jamId}`)
+async function registerToJam(jamId,user) {
+	let res
+	await axios.get(`${API_URL}/jams/${jamId}`)
 	.then((foundJam)=>{
 		let musicians = foundJam.data.musicians
 		const musiciansIds = musicians.map(musician=>musician._id)
-		if(musiciansIds.includes(user._id)){
-			throw new Error ('YA ESTAS INSCRITO')
-		}
-		musicians.push(user)
-		axios.put(`${API_URL}/jams/${jamId}`,{musicians})
-		.then((response)=>{
-			console.log(response.data)
-			const modifiedJam = response.data
-			axios.get(`${API_URL}/users/${user._id}`)
-			.then((currentUser)=>{
-				const events = currentUser.data.eventsSubscribed
-				console.log()
-				events.push(modifiedJam)
-				axios.put(`${API_URL}/users/${user._id}`,{eventsSubscribed:events})
-				.then((response)=>console.log(response.data))
+		let result = musiciansIds.includes(user._id)
+		if(!result){
+			musicians.push(user)
+			axios.put(`${API_URL}/jams/${jamId}`,{musicians})
+			.then((response)=>{
+				console.log(response.data)
+				const modifiedJam = response.data
+				axios.get(`${API_URL}/users/${user._id}`)
+				.then((currentUser)=>{
+					const events = currentUser.data.eventsSubscribed
+					events.push(modifiedJam)
+					axios.put(`${API_URL}/users/${user._id}`,{eventsSubscribed:events})
+				})
 			})
-		})
+		}else{return true}
 	})
+	.then((test)=>{return test})
 	.catch(err=>console.log(err))
 }
 

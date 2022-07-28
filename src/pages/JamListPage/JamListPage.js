@@ -1,4 +1,4 @@
-import { List,ListItem,ListItemText  } from '@mui/material';
+import { List,ListItem,ListItemText, Stack  } from '@mui/material';
 import axios from 'axios';
 import { useState,useEffect } from 'react';
 import { useContext } from "react";                       // <== IMPORT 
@@ -9,12 +9,16 @@ import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import { JamContext } from '../../context/jams.context';
 import { searchJamsByDate } from '../../services/jams.services';
+import ButtonOut from '../../components/ButtonOut/ButtonOut';
+import ButtonGoToDetails from '../../components/ButtonGoToDetails/ButtonGoToDetails';
+import RegisterModal from '../../components/RegisterModal/RegisterModal';
 const API_URL = "http://localhost:5005"; 
 
 function JamListPage() {
     const [jams, setjams] = useState([])
     const [cloneJams,setCloneJams] = useState(jams)
     const { user } = useContext(AuthContext)  
+    const [currentUser,setCurrentUser] = useState([])
     const {allJams, setAllJams} = useContext(JamContext)  
     
     useEffect(()=>{
@@ -42,7 +46,12 @@ function JamListPage() {
             <ListItem
             key={jam._id}
             secondaryAction={
+                <Stack direction="row">
+                <ButtonGoToDetails jamId={jam._id}/>
+                <ButtonOut/>
+                <RegisterModal jamId={jam._id} user={user}/>
                 <SimplePopper jam={jam}/>
+                </Stack>
             }
             >
             <ListItemText primary={`${jam.name}        ${jam.date}`} />

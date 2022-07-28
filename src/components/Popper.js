@@ -30,7 +30,6 @@ function SimplePopper(props) {
         </IconButton>
         </ClickAwayListener>  
         <Popper id={id} open={open} anchorEl={anchorEl}>
-            
             <JamCard jam={jam} back={handleClick} addJamToUserList={addJamToUserList}/>   
         </Popper>
         

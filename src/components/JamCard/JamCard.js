@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
 import { useContext, useState } from 'react';
 import { registerToJam, unregisterToJam } from '../../services/jams.services';
+import RegisterModal from '../RegisterModal/RegisterModal';
 
 function JamCard(props) {
     const {jam,back} = props
@@ -64,7 +65,7 @@ function JamCard(props) {
             <CardActions>
                 {user &&
                     <>
-                    <Button size="small" onClick={()=> registerToJam(jam._id,user)}>I am IN!</Button>
+                    <RegisterModal size="small" jamId={jam._id} user = {user}/>
                     <Button size="small" onClick={()=> unregisterToJam(jam._id,user)}>I am OUT!</Button>
                     </>
                 }

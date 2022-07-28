@@ -26,7 +26,6 @@ function ProfileInfo(props){
     const [image,SetImage] = useState("")
     
     useEffect(()=>{
-            console.log(user)
             setCurrentUser(user)
             setAbout(user.about)
             SetImage(user.picture)
@@ -55,7 +54,6 @@ function ProfileInfo(props){
             setInstruments(user.instruments)
             SetImage(user.picture)
             setEditMode(false)
-
         })
     }
 

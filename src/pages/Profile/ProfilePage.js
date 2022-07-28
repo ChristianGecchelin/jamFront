@@ -28,11 +28,9 @@ function ProfilePage ()  {
             setCreatedJams(user.jamsCreated)
             setRegisteredJams(user.eventsSubscribed)
         })
-        .then((response)=>{
-            
-        })
         .catch(err => console.log(err))
     },[])
+
 
     return(
         <Box
@@ -46,6 +44,7 @@ function ProfilePage ()  {
         <ProfileJamList 
         createdJams = {createdJams} setCreatedJams = {setCreatedJams} 
         registeredJams = {registeredJams} setRegisteredJams = {setRegisteredJams}
+        user={currentUser}
         />
 
         </Box>

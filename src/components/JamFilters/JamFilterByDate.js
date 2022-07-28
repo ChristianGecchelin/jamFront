@@ -10,7 +10,6 @@ function JamFilterByDate(props) {
     const [date,setDate] = useState([])
 
     const handleDate = (e) => {
-      debugger
         searchJams((e.target.value))
         setSearchDate((e.target.value))
         setDate(e.target.value)
@@ -20,7 +19,6 @@ function JamFilterByDate(props) {
   
 
   useEffect(() => {
-    debugger
     if(searchDateHome){
       setDate(searchDateHome);
     }

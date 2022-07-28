@@ -35,7 +35,6 @@ const MapPage = (props) => {
   const [todayDate, setTodayDate] = useState(new Date());
 
   const searchJamsByDate = (date, cloneJams) => {
-    debugger
     //Convert the date without the hours
     let convertedDate = new Date(date).setHours(0, 0, 0, 0);
     const updatedJams = cloneJams.filter((cloneJam) => {
@@ -63,14 +62,14 @@ const MapPage = (props) => {
   };
 
   const createMarkersJams = (array) => {
-    debugger;
-
-    markers.forEach((marker) => marker.remove());
-
+    if (markers.length > 0) {
+      markers.forEach((marker) => {
+        marker.remove();
+      });
+    }
     let newMarkers = [];
     setMarkers(newMarkers);
     for (const jam of array) {
-      debugger;
       if (typeof jam.location.center !== undefined) {
         const [lng, lat] = jam.location.center;
         const myLocationPopup = new Popup().setHTML(
@@ -116,18 +115,22 @@ const MapPage = (props) => {
   }, []);
 
   useEffect(() => {
+    console.log('estoy en alljams')
     setjams(allJams);
     setCloneJams(allJams);
     createMarkersJams(allJams);
   }, [allJams]);
 
   useEffect(() => {
+    console.log('estoy en jams')
     if (jams instanceof Array) {
+      setjams(jams)
       createMarkersJams(jams);
     }
   }, [jams]);
 
   useEffect(() => {
+    console.log('estoy en alljams')
     if (jamsForHome) {
       setjams(jamsForHome);
     }
@@ -150,7 +153,7 @@ const MapPage = (props) => {
         searchDateHome={searchDate}
         style={{ zIndex: 500, width: "500px", backgroundColor: "white," }}
         searchJams={(e) => {
-          searchJamsByDate(e, jams);
+          searchJamsByDate(e, cloneJams);
         }}
         className="MuiFormControl-root"
       />

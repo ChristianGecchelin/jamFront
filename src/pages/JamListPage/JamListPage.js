@@ -73,8 +73,9 @@ function JamListPage(props) {
       display="flex"
       flexDirection="row"
       justifyContent="space-between"
+      flexWrap={'wrap'}
     >
-      <Box sx={{ width: "10%" }}>
+      <Box sx={{ width: "100%", minWidth:'100%' }}>
         <JamFilterByDate
           searchJams={(e) => {
             setjams(searchJamsByDate(e, cloneJams));
@@ -83,7 +84,7 @@ function JamListPage(props) {
           searchDateHome={searchDate}
         />
       </Box>
-      <Box sx={{ width: "80%" }}>
+      <Box sx={{ width: "100%",minWidth:'400px' }}>
         <List sx={{ width: "100%", bgcolor: "background.paper" }}>
           {jams.map((jam) => (
             <>

@@ -33,7 +33,7 @@ const MapPage = (props) => {
   const [jams, setjams] = useState(allJams);
   const [cloneJams, setCloneJams] = useState(jams);
   const [todayDate, setTodayDate] = useState(new Date());
-
+  const[filtros,setFiltros]=useState(false)
   const searchJamsByDate = (date, cloneJams) => {
     //Convert the date without the hours
     let convertedDate = new Date(date).setHours(0, 0, 0, 0);
@@ -63,9 +63,9 @@ const MapPage = (props) => {
 
   const createMarkersJams = (array) => {
     if (markers.length > 0) {
-      markers.forEach((marker) => {
+      for (const marker of markers) {
         marker.remove();
-      });
+      }
     }
     let newMarkers = [];
     setMarkers(newMarkers);
@@ -110,27 +110,31 @@ const MapPage = (props) => {
     }
   }, [isLoadingLocation]);
 
+console.log(filtros)
   useEffect(() => {
     getAllJams();
+    setTimeout(()=>{
+      setFiltros(true)
+    },3000)
   }, []);
 
   useEffect(() => {
-    console.log('estoy en alljams')
+    console.log("estoy en alljams");
     setjams(allJams);
     setCloneJams(allJams);
     createMarkersJams(allJams);
   }, [allJams]);
 
   useEffect(() => {
-    console.log('estoy en jams')
+    console.log("estoy en jams");
     if (jams instanceof Array) {
-      setjams(jams)
+      setjams(jams);
       createMarkersJams(jams);
     }
   }, [jams]);
 
   useEffect(() => {
-    console.log('estoy en alljams')
+    console.log("estoy en alljams");
     if (jamsForHome) {
       setjams(jamsForHome);
     }
@@ -147,7 +151,7 @@ const MapPage = (props) => {
       ref={mapDiv}
     >
       <BtnMyLocation />
-      <JamFilterByDate
+      {filtros && <JamFilterByDate
         todayDate={todayDate}
         setSearchDateHome={setSearchDate}
         searchDateHome={searchDate}
@@ -156,7 +160,8 @@ const MapPage = (props) => {
           searchJamsByDate(e, cloneJams);
         }}
         className="MuiFormControl-root"
-      />
+      />}
+      
       {/*    <SearchBar
         style={{
           position: "fixed",

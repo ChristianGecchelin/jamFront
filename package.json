@@ -20,6 +20,7 @@
     "bootstrap": "^5.2.0",
     "core-js-compat": "^3.23.5",
     "date-fns": "^2.29.1",
+    "formik": "^2.2.9",
     "jsesc": "^3.0.2",
     "mapbox-gl": "^2.9.2",
     "react": "^17.0.2",

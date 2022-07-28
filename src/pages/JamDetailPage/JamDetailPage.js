@@ -20,7 +20,8 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import EventIcon from '@mui/icons-material/Event';
 import { Button } from "@mui/material";
 
-const API_URL = "http://localhost:5005";
+const API_URL = process.env.REACT_APP_API_URL
+
 
 function JamDetailPage () {
     const { user } = useContext(AuthContext)  
@@ -36,7 +37,7 @@ function JamDetailPage () {
 
     useEffect(()=>{
             axios
-            .get(`${API_URL}/api/jams/${jamId}`)
+            .get(`${API_URL}/jams/${jamId}`)
             .then((response)=>{
             const jamFound = response.data
             setJam(jamFound)

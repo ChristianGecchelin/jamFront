@@ -3,26 +3,24 @@ import { List, ListItem, ListItemText, Stack } from "@mui/material";
 import axios from "axios";
 import { AuthContext } from "../../context/auth.context";
 import JamFilterByDate from "../../components/JamFilters/JamFilterByDate";
-import JamFilterByCategory from "../../components/JamFilters/JamFileterByCategory";
-import SimplePopper from "../../components/Popper";
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import { JamContext } from "../../context/jams.context";
 import { searchJamsByDate } from "../../services/jams.services";
 import ButtonOut from "../../components/ButtonOut/ButtonOut";
+import ButtonGoToDetails from '../../components/ButtonGoToDetails/ButtonGoToDetails';
+import ButtonIn from '../../components/ButtonIn/ButtonIn';
 import EventIcon from '@mui/icons-material/Event';
 import Typography from '@mui/material/Typography';
 import { format } from "date-fns";
-import ButtonGoToDetails from "../../components/ButtonGoToDetails/ButtonGoToDetails";
-import ButtonIn from "../../components/ButtonIn/ButtonIn";
-const API_URL = "http://localhost:5005";
+const API_URL = process.env.REACT_APP_API_URL
 
 function JamListPage(props) {
   const { jamsForHome, setJamsForHome, searchDate, setSearchDate } = props;
   const [jams, setjams] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
   const [cloneJams, setCloneJams] = useState(jams);
-  const { user } = useContext(AuthContext);
+  const { user,isLoggedIn } = useContext(AuthContext);
   const { allJams, setAllJams } = useContext(JamContext);
   /* const searchJamsByDate = (date) => {
     //Convert the date without the hours
@@ -93,12 +91,19 @@ function JamListPage(props) {
             secondaryAction={
                 <Stack direction="row">
                 <ButtonGoToDetails jamId={jam._id}/>
-                <ButtonIn jamId={jam._id} user={user}/>
-                <ButtonOut jamId={jam._id} user={user}/>
+                {isLoggedIn &&
+                    <>
+                    <ButtonIn jamId={jam._id} user={user}/>
+                    <ButtonOut jamId={jam._id} user={user}/>
+                    </>
+                }
+                
                 </Stack>
             }
             >
-            <ListItemText secondary={`${jam.name}`} 
+            <ListItemText 
+            key={jam._id}
+            secondary={`${jam.name}`} 
             primary={<Stack direction="row" spacing={2} id="stackDate">
                     <EventIcon sx={{ color:'red' }}/>
                     <Typography sx={{color:'red'}} variant="body2" gutterBottom component="div">

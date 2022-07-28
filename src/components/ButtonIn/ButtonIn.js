@@ -27,7 +27,9 @@ export default function ButtonIn(props) {
     
     return (
     <div>
-        <Button onClick={()=>{
+        <Button 
+        sx={{mr:1,ml:1}}
+        onClick={()=>{
             handleOpen()
             registerToJam(jamId,user)
             }}>I am In ! </Button>

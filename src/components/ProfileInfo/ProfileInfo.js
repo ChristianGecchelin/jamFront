@@ -61,13 +61,13 @@ function ProfileInfo(props){
             <Paper
             sx={{
                 width: '30%',
-                height: 'auto',
+                height: '500px',
                 p: 2
                 }}>
             <Box
                 sx={{
                 width: '90%',
-                height: 'auto',
+                height: '400',
                 p: 2
                 }}
                 display="flex"
@@ -139,8 +139,8 @@ function ProfileInfo(props){
         return(
             <Box
                 sx={{
-                width: '30%',
-                height: 'auto',
+                width: '27%',
+                height: '500px',
                 p: 2
                 }}
                 display="flex"

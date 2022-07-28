@@ -27,7 +27,9 @@ export default function RegisterModal(props) {
     
     return (
     <div>
-        <Button onClick={()=>{
+        <Button 
+        sx={{mr:1,ml:1}}
+        onClick={()=>{
             handleOpen()
             unregisterToJam(jamId,user)
             }}>I am OUT ! </Button>

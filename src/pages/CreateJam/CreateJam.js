@@ -2,9 +2,6 @@ import { useState, useContext, useRef, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
-import { DatePicker } from "@material-ui/pickers";
-import SearchBar from "../../components/SearchBar/SearchBar";
-import SearchResults from "../../components/SearchResults/SearchResults";
 import { JamContext } from "../../context/jams.context";
 
 //material UI
@@ -19,13 +16,9 @@ import Box from "@mui/material/Box";
 import Autocomplete from "@mui/material/Autocomplete";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
 import JamDatePicker from "../../components/DatePicker";
 
-//material UI
-
-const API_URL = "http://localhost:5005";
+const API_URL = process.env.REACT_APP_API_URL;
 
 function CreateJam() {
   const musicalGenre = [
@@ -85,8 +78,8 @@ function CreateJam() {
       userId: user._id,
     };
     axios
-      .post(`${API_URL}/api/jams`, requestBody)
-      .then(() => {
+      .post(`${API_URL}/jams`, requestBody)
+      .then((res) => {
         setName("");
         setDate(new Date(Date.now));
         setDescription("");
@@ -95,7 +88,7 @@ function CreateJam() {
         navigate("/jams");
       })
       .then(() => {
-        axios.get(`${API_URL}/api/jams`).then((jams) => {
+        axios.get(`${API_URL}/jams`).then((jams) => {
           setAllJams(jams.data);
         });
       });
@@ -114,11 +107,7 @@ function CreateJam() {
 
   if (placeList.length === 0) {
     return (
-      <Container
-        component="main"
-        maxWidth="xs"
-        sx={{ bgcolor: "primary.light" }}
-      >
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -206,11 +195,7 @@ function CreateJam() {
     );
   } else {
     return (
-      <Container
-        component="main"
-        maxWidth="xs"
-        sx={{ bgcolor: "primary.light" }}
-      >
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{

@@ -15,7 +15,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-const API_URL = "http://localhost:5005";
+const API_URL = process.env.REACT_APP_API_URL
 
 function EditJam () {
     const {jamId} = useParams()    
@@ -39,7 +39,7 @@ function EditJam () {
 
     useEffect(()=>{
         axios
-        .get(`${API_URL}/api/jams/${jamId}`)
+        .get(`${API_URL}/jams/${jamId}`)
         .then((response)=>{
             const jamFound = response.data
             setName(jamFound.name)
@@ -55,7 +55,7 @@ function EditJam () {
         e.preventDefault();
         const requestBody = {name, date, description, limit, categories,userId:user._id}
         axios
-        .put(`${API_URL}/api/jams/${jamId}`, requestBody)
+        .put(`${API_URL}/jams/${jamId}`, requestBody)
         .then(()=>{
             setName("")
             setDate(new Date(Date.now))
@@ -67,7 +67,7 @@ function EditJam () {
     }
 
     return (
-        <Container component="main" maxWidth="xs" sx={{ bgcolor: 'primary.light' }}>
+        <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
 			sx={{

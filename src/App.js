@@ -2,7 +2,6 @@ import "./App.css";
 
 import {useContext} from 'react'
 import { Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage/HomePage';
 import MapPage from './pages/MapPage/MapPage';
 import SignupPage from './pages/SignupPage';
@@ -18,7 +17,7 @@ import JamDetailPage from './pages/JamDetailPage/JamDetailPage';
 
 
 //MATERIAL UI
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import {createTheme } from '@mui/material/styles';
 import ResponsiveAppBar from './components/ResponsiveNavBar';
 import ProfilePage from './pages/Profile/ProfilePage';
 
@@ -53,16 +52,9 @@ function App() {
     <>			
 			<ResponsiveAppBar/>
 			<Routes>
-				
 				<Route exact path="/" element={<HomePage/>} />
-				<Route
-					exact
-					path="/map"
-					element={
-						<MapPage />
-					}
-				/>
-				
+				<Route exact path="/map"
+					element={<MapPage />}/>
 				<Route
 					exact
 					path="/createjam"
@@ -119,7 +111,7 @@ function App() {
 					}
 				/>
 				
-				{user&&<Route
+				<Route
 					exact
 					path="/profile"
 					element={
@@ -127,8 +119,7 @@ function App() {
 							<ProfilePage/>
 						</PrivateRoute>
 					}
-				/>}
-				
+				/>				
 				</Routes>
 			</>	
 	);

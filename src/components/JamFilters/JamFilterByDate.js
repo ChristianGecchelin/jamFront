@@ -24,9 +24,7 @@ function JamFilterByDate(props) {
     }
   }, [searchDateHome]);
 
-  console.log(todayDate)
   useEffect(() => {
-    debugger
     if(todayDate){
       setDate(todayDate);
     }

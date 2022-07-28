@@ -4,6 +4,7 @@ function ButtonGoToEdit (props) {
     const {jamId} = props
     return (
             <Button 
+            sx={{mr:1,ml:1}}
             size="small"
             variant="contained"
             component={Link}

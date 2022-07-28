@@ -44,7 +44,7 @@ function SignupPage(props) {
 };
 
 	return (	
-		<Container component="main" maxWidth="xs" sx={{ bgcolor: 'primary.light' }}>
+		<Container component="main" maxWidth="xs">
 			<CssBaseline />
 			<Box
 			sx={{
@@ -54,7 +54,7 @@ function SignupPage(props) {
 				alignItems: 'center',
 			}}
 			>
-			<Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+			<Avatar sx={{ m: 1}}>
 				<AccountCircleIcon />
 			</Avatar>
 			<Typography component="h1" variant="h5">

@@ -12,6 +12,10 @@ import { searchJamsByDate } from '../../services/jams.services';
 import ButtonOut from '../../components/ButtonOut/ButtonOut';
 import ButtonGoToDetails from '../../components/ButtonGoToDetails/ButtonGoToDetails';
 import ButtonIn from '../../components/ButtonIn/ButtonIn';
+import { format } from "date-fns";
+import EventIcon from '@mui/icons-material/Event';
+import Typography from '@mui/material/Typography';
+
 const API_URL = "http://localhost:5005"; 
 
 function JamListPage() {
@@ -60,7 +64,14 @@ function JamListPage() {
                 </Stack>
             }
             >
-            <ListItemText primary={`${jam.name}        ${jam.date}`} />
+            <ListItemText secondary={`${jam.name}`} 
+            primary={<Stack direction="row" spacing={2} id="stackDate">
+                    <EventIcon sx={{ color:'red' }}/>
+                    <Typography sx={{color:'red'}} variant="body2" gutterBottom component="div">
+                        {format(new Date(jam.date),'dd-MM-yyyy')}
+                    </Typography>
+            </Stack>}
+            />
             </ListItem>
             <Divider/>
             </>

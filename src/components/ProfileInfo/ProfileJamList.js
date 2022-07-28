@@ -40,7 +40,7 @@ function ProfileJamList (props) {
                 }}>     
         <Box>
         <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-            The jams I've created
+            Created Jams
         </Typography>
         <List sx={{ width: '100%' }}>
             {createdJams.length===0 &&
@@ -55,16 +55,20 @@ function ProfileJamList (props) {
                 </Box>
             }
             {createdJams.map((jam) => (
-            
             <ListItem
             sx={{width:'auto'}}
             alignItems="flex-start"
             key={jam._id}
             secondaryAction={
-                <Stack direction='row' spacing={1} sx={{width:'40%'}}>
-                <ButtonGoToDetails jamId={jam._id}/>
-                <ButtonGoToEdit jamId={jam._id}/>
-                </Stack>
+                <Box 
+                display='flex'
+                flexDirection='row'
+                justifyContent='space-between'
+                >                
+                    <ButtonGoToDetails jamId={jam._id}/>
+                    <ButtonGoToEdit jamId={jam._id}/>
+                    
+                </Box>
             }
             >
             <ListItemText 
@@ -76,7 +80,7 @@ function ProfileJamList (props) {
                     </Typography>
                 </Stack>
             }
-            secondary={`${jam.name} on ${jam.date}`} />
+            secondary={`${jam.name}`} />
             </ListItem>
             
             ))}
@@ -93,7 +97,7 @@ function ProfileJamList (props) {
                 }}>
         <Box>
         <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-            The jams I've registered
+            Registered Jams
         </Typography>
         <List sx={{ width: '100%', maxWidth: 700, bgcolor: 'background.paper' }}>
             {registeredJams.map((jam) => (

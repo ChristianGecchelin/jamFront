@@ -4,7 +4,6 @@ import { useState,useEffect } from 'react';
 import { useContext } from "react";                       // <== IMPORT 
 import { AuthContext } from "../../context/auth.context"; 
 import JamFilterByDate from '../../components/JamFilters/JamFilterByDate';
-import SimplePopper from '../../components/Popper';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import { JamContext } from '../../context/jams.context';
@@ -21,9 +20,8 @@ const API_URL = process.env.REACT_APP_API_URL
 function JamListPage() {
     const [jams, setjams] = useState([])
     const [cloneJams,setCloneJams] = useState(jams)
-    const { user } = useContext(AuthContext)  
-    const [currentUser,setCurrentUser] = useState([])
-    const {allJams, setAllJams} = useContext(JamContext)  
+    const { user,isLoggedIn } = useContext(AuthContext)  
+    const {allJams} = useContext(JamContext)  
     
     useEffect(()=>{
         setjams(allJams)
@@ -32,7 +30,7 @@ function JamListPage() {
     },[allJams])
 
     useEffect(()=>{
-        axios.get(`${API_URL}/api/jams`)
+        axios.get(`${API_URL}/jams`)
         .then((allJams)=>{
             setjams(allJams.data)
         })
@@ -59,12 +57,19 @@ function JamListPage() {
             secondaryAction={
                 <Stack direction="row">
                 <ButtonGoToDetails jamId={jam._id}/>
-                <ButtonIn jamId={jam._id} user={user}/>
-                <ButtonOut jamId={jam._id} user={user}/>
+                {isLoggedIn &&
+                    <>
+                    <ButtonIn jamId={jam._id} user={user}/>
+                    <ButtonOut jamId={jam._id} user={user}/>
+                    </>
+                }
+                
                 </Stack>
             }
             >
-            <ListItemText secondary={`${jam.name}`} 
+            <ListItemText 
+            key={jam._id}
+            secondary={`${jam.name}`} 
             primary={<Stack direction="row" spacing={2} id="stackDate">
                     <EventIcon sx={{ color:'red' }}/>
                     <Typography sx={{color:'red'}} variant="body2" gutterBottom component="div">

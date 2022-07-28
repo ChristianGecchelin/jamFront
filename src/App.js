@@ -53,13 +53,8 @@ function App() {
 			<ResponsiveAppBar/>
 			<Routes>
 				<Route exact path="/" element={<HomePage/>} />
-				<Route
-					exact
-					path="/map"
-					element={
-						<MapPage />
-					}
-				/>
+				<Route exact path="/map"
+					element={<MapPage />}/>
 				<Route
 					exact
 					path="/createjam"
@@ -116,7 +111,7 @@ function App() {
 					}
 				/>
 				
-				{user&&<Route
+				<Route
 					exact
 					path="/profile"
 					element={
@@ -124,8 +119,7 @@ function App() {
 							<ProfilePage/>
 						</PrivateRoute>
 					}
-				/>}
-				
+				/>				
 				</Routes>
 			</>	
 	);

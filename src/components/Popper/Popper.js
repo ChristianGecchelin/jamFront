@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Popper from '@mui/material/Popper';
-import JamCard from './JamCard/JamCard';
+import JamCard from '../JamCard/JamCard';
 import { IconButton } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import ClickAwayListener from '@mui/material/ClickAwayListener';

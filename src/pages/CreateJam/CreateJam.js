@@ -2,14 +2,12 @@ import { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import JamDatePicker from '../../components/DatePicker';
 
 //material UI
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated';
-import {KeyboardDatePicker} from '@material-ui/pickers';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -46,10 +44,11 @@ function CreateJam () {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const requestBody = {name, date, description, limit, categories,userId:user._id}
+        const requestBody = {name, date:new Date(date), description, limit, categories, userId:user._id}
+        console.log(typeof requestBody)
         axios
-        .post(`${API_URL}/api/jams`, requestBody)
-        .then(()=>{
+        .post(`${API_URL}/jams`, requestBody)
+        .then((res)=>{
             setName("")
             setDate(new Date(Date.now))
             setDescription("")
@@ -58,7 +57,7 @@ function CreateJam () {
             navigate('/jams')
         })
         .then(()=>{
-            axios.get(`${API_URL}/api/jams`)
+            axios.get(`${API_URL}/jams`)
             .then((jams)=>{
                 console.log(jams)
                 setAllJams(jams.data)

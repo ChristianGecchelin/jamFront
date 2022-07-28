@@ -1,5 +1,3 @@
-import CustomCarousel from "../components/Carousel/Carousel";
-
 function HomePage() {
   return (
     <>

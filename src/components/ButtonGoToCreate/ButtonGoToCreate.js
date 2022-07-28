@@ -4,6 +4,7 @@ function ButtonGoToCreate () {
     
     return (
             <Button 
+            sx={{mr:1,ml:1}}
             variant="contained"
             component={Link}
             href={`/createjam`}

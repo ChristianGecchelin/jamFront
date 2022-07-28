@@ -37,7 +37,7 @@ function JamDetailPage () {
 
     useEffect(()=>{
             axios
-            .get(`${API_URL}/api/jams/${jamId}`)
+            .get(`${API_URL}/jams/${jamId}`)
             .then((response)=>{
             const jamFound = response.data
             setJam(jamFound)

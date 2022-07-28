@@ -5,7 +5,6 @@ import { AuthContext } from './../context/auth.context';
 import { loginService } from '../services/auth.services';
 
 //Material
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {Avatar,Button, CssBaseline,
 	TextField,Grid,Box,
 	Typography,Container,Link} from '@mui/material';
@@ -16,7 +15,7 @@ function LoginPage(props) {
 	const [ password, setPassword ] = useState('');
 	const [ errorMessage, setErrorMessage ] = useState(undefined);
 	const navigate = useNavigate();
-	const { logInUser, user } = useContext(AuthContext);
+	const { logInUser } = useContext(AuthContext);
 
 	const handleEmail = (e) => setEmail(e.target.value);
 	const handlePassword = (e) => setPassword(e.target.value);

@@ -1,19 +1,24 @@
 import { useState } from 'react';
 import React from 'react';
-import {KeyboardDatePicker } from '@material-ui/pickers';
+import { TextField } from '@mui/material';
 
 function JamFilterByDate(props) {
     const {searchJams} = props
     const [searchDate,setSearchDate] = useState(new Date())
+    const [date,setDate] = useState([])
 
     const handleDate = (e) => {
-        console.log(e)
-        searchJams(new Date(e))
-        setSearchDate(new Date(e))
+        searchJams(new Date(e.target.value))
+        setSearchDate(new Date(e.target.value))
+        setDate(e.target.value)
     }
 
     return(
-        <KeyboardDatePicker  value={searchDate} onChange={handleDate} />
+        <TextField
+        type="date"
+        name="limitDate"
+        value={date} 
+        onChange={handleDate}/>
     )
 }
 export default JamFilterByDate

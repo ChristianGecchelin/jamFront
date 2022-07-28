@@ -2,7 +2,9 @@ import { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
-
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import JamDatePicker from '../../components/DatePicker';
 
 //material UI
 import Select from 'react-select'
@@ -93,7 +95,7 @@ function CreateJam () {
 						/>
 					</Grid>
                     <Grid item xs={12}>
-                        <KeyboardDatePicker value={date} onChange={setDate} />
+                        <JamDatePicker value={date} set={(e) => setDate (e.target.value)}/>
                     </Grid>
                     <Grid item xs={12}>
                         <Autocomplete
@@ -137,50 +139,7 @@ function CreateJam () {
                 </Box>
             </Box>
         </Container>
-        /*
-        <Form onSubmit={handleSubmit} id="form-task">
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Name your jam</Form.Label>
-                <Form.Control type="text" name="name" value={name}
-                placeholder="Enter the name of your project" 
-                onChange={(e) => setName(e.target.value)}
-                />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Date</Form.Label>
-                <DatePicker value={date} onChange={setDate} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Description</Form.Label>
-                <Form.Control type="text" name="description" value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Limit</Form.Label>
-                <Form.Check 
-                type="checkbox" 
-                label="Limit"
-                checked={limit}
-                value={limit}
-                onChange={(e) => setLimit(e.target.value)}
-                />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Categories</Form.Label>
-                <Select
-                closeMenuOnSelect={false}
-                components={animatedComponents}
-                defaultValue={[musicalGenre[8]]}
-                isMulti
-                options={musicalGenre}
-                onChange={(e) => setCategories(e)}
-                />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-                Submit
-            </Button>
-        </Form>*/
+        
     
     )
 }

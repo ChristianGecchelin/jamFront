@@ -4,7 +4,6 @@ import { useState,useEffect } from 'react';
 import { useContext } from "react";                       // <== IMPORT 
 import { AuthContext } from "../../context/auth.context"; 
 import JamFilterByDate from '../../components/JamFilters/JamFilterByDate';
-import JamFilterByCategory from '../../components/JamFilters/JamFileterByCategory';
 import SimplePopper from '../../components/Popper';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';

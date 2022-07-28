@@ -54,10 +54,7 @@ function App() {
 	const {user} = useContext(AuthContext)
 	
 	return (
-		
-		
-		<MuiPickersUtilsProvider utils={DateFnsUtils}>
-			
+		<>			
 			<ResponsiveAppBar/>
 			<Routes>
 				
@@ -147,9 +144,7 @@ function App() {
 				/>
 				
 				</Routes>
-			</MuiPickersUtilsProvider>		
-		
-		
+			</>	
 	);
 }
 

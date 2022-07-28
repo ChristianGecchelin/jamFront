@@ -12,6 +12,8 @@ function HomePage() {
   useEffect(() => {
     setJamsForHome(allJams);
   }, [allJams]);
+  console.log('jams',jamsForHome)
+  console.log('search',searchDate)
   return (
     <div>
       <section className="section-principal">

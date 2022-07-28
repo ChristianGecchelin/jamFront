@@ -7,15 +7,13 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { MenuItem } from '@mui/material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 function SignupPage(props) {
@@ -58,7 +56,7 @@ function SignupPage(props) {
 			}}
 			>
 			<Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-				<LockOutlinedIcon />
+				<AccountCircleIcon />
 			</Avatar>
 			<Typography component="h1" variant="h5">
 				Sign up
@@ -103,21 +101,6 @@ function SignupPage(props) {
 						/>
 					</Grid>
 					<Grid item xs={12}>
-					<TextField
-						id="outlined-select-currency"
-						select
-						label="Select"
-						value={type}
-						onChange={handleType}
-						helperText="Please select your currency"
-						>
-						<MenuItem key="Host" value="host">
-						Host
-						</MenuItem>
-						<MenuItem key="Musician" value="musician">
-						Musician
-						</MenuItem>				
-					</TextField>
 					</Grid>
 				</Grid>
 				<Button
@@ -131,7 +114,7 @@ function SignupPage(props) {
 				<Grid container justifyContent="flex-end">
 				<Grid item>
 					<Link href={'/login'} variant="body2">
-					Already have an account? Sign in
+					Already have an account? Log in
 					</Link>
 				</Grid>
 				</Grid>

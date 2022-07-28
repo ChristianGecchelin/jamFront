@@ -1,8 +1,15 @@
 import { useState, useContext } from 'react';
 // import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './../context/auth.context';
 import { loginService } from '../services/auth.services';
+
+//Material
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {Avatar,Button, CssBaseline,
+	TextField,Grid,Box,
+	Typography,Container,Link} from '@mui/material';
+	import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 
 function LoginPage(props) {
 	const [ email, setEmail ] = useState('');
@@ -31,24 +38,67 @@ function LoginPage(props) {
 	};
 
 	return (
-		<div className="LoginPage">
-			<h1>Login</h1>
-
-			<form onSubmit={handleLoginSubmit}>
-				<label>Email:</label>
-				<input type="text" name="email" value={email} onChange={handleEmail} />
-
-				<label>Password:</label>
-				<input type="password" name="password" value={password} onChange={handlePassword} />
-
-				<button type="submit">Login</button>
-			</form>
-			{errorMessage && <p className="error-message">{errorMessage}</p>}
-
-			<p>Don't have an account yet?</p>
-			<Link to={'/signup'}> Sign Up</Link>
-		</div>
-	);
+		<Container component="main" maxWidth="xs" sx={{ bgcolor: 'primary.light' }}>
+			<CssBaseline />
+			<Box
+			sx={{
+				marginTop: 8,
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
+			}}
+			>
+			<Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+				<LockOpenOutlinedIcon />
+			</Avatar>
+			<Typography component="h1" variant="h5">
+				Log in
+			</Typography>
+			<Box component="form" noValidate onSubmit={handleLoginSubmit} sx={{ mt: 3 }}>
+				<Grid container spacing={2}>
+					<Grid item xs={12}>
+						<TextField
+						required
+						fullWidth
+						id="email"
+						label="Email Address"
+						name="email"
+						autoComplete="email"
+						value={email} 
+						onChange={handleEmail}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<TextField
+						required
+						fullWidth
+						name="password"
+						label="Password"
+						type="password"
+						id="password"
+						autoComplete="new-password"
+						value={password} 
+						onChange={handlePassword}
+						/>
+					</Grid>
+				</Grid>
+				<Button
+				type="submit"
+				fullWidth
+				variant="contained"
+				sx={{ mt: 3, mb: 2 }}
+				>
+					Log in
+				</Button>
+				<Grid container justifyContent="flex-end">
+				<Grid item>
+					<Link href={'/signup'} variant="body2">
+					Don't have an account yet? Sign up					</Link>
+				</Grid>
+				</Grid>
+			</Box>	
+			</Box>
+		</Container>);
 }
 
 export default LoginPage;

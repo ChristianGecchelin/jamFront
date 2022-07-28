@@ -1,4 +1,4 @@
-import React, {
+import {
   useRef,
   useEffect,
   useState,
@@ -22,7 +22,6 @@ const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 mapboxgl.accessToken = MAPBOX_TOKEN;
 
 const MapPage = (props) => {
-  console.log(Object.keys(props).length);
   if (Object.keys(props).length > 0) {
     var { jamsForHome, setJamsForHome, searchDate, setSearchDate } = props;
   }
@@ -33,16 +32,19 @@ const MapPage = (props) => {
   const mapDiv = useRef(null);
   const [jams, setjams] = useState(allJams);
   const [cloneJams, setCloneJams] = useState(jams);
-  const [todayDate,setTodayDate]=useState(new Date())
-  const searchJamsByDate = (date) => {
+  const [todayDate, setTodayDate] = useState(new Date());
+
+   const searchJamsByDate = (date,cloneJams) => {
+   
     //Convert the date without the hours
-    let convertedDate = date.setHours(0, 0, 0, 0);
+    let convertedDate = new Date(date).setHours(0,0,0,0)
     const updatedJams = cloneJams.filter((cloneJam) => {
+      
       if (convertedDate === null) {
         return cloneJam;
       } else {
         //Convert the date into a date object, without the hours
-        let convertedJamDate = new Date(cloneJam.date).setHours(0, 0, 0, 0);
+        let convertedJamDate = new Date(cloneJam.date).setHours(0,0,0,0)
         return convertedJamDate === convertedDate;
       }
     });
@@ -50,7 +52,7 @@ const MapPage = (props) => {
     if (setJamsForHome) {
       setJamsForHome(updatedJams);
     }
-  };
+  }; 
 
   const deleteFilters = () => {
     setjams(allJams);
@@ -58,12 +60,12 @@ const MapPage = (props) => {
       setJamsForHome(allJams);
       setSearchDate(new Date());
     }
-    setTodayDate(todayDate)
+    setTodayDate(todayDate);
   };
 
   const createMarkersJams = (array) => {
     markers.forEach((marker) => marker.remove());
-    const newMarkers = [];
+    let newMarkers = [];
     setMarkers(newMarkers);
     for (const jam of array) {
       if (typeof jam.location.center !== undefined) {
@@ -83,6 +85,7 @@ const MapPage = (props) => {
         newMarkers.push(newMarker);
       }
     }
+    setMarkers(newMarkers)
   };
 
   useLayoutEffect(() => {
@@ -122,8 +125,7 @@ const MapPage = (props) => {
   }, [jams]);
 
   useEffect(() => {
-    if(jamsForHome){
-
+    if (jamsForHome) {
       setjams(jamsForHome);
     }
   }, [jamsForHome]);
@@ -140,11 +142,12 @@ const MapPage = (props) => {
     >
       <BtnMyLocation />
       <JamFilterByDate
-      todayDate={todayDate}
+        todayDate={todayDate}
         setSearchDateHome={setSearchDate}
         searchDateHome={searchDate}
         style={{ zIndex: 500, width: "500px", backgroundColor: "white," }}
-        searchJams={searchJamsByDate}
+        searchJams={(e) => {(searchJamsByDate(e, cloneJams));
+        }}
         className="MuiFormControl-root"
       />
       {/*    <SearchBar

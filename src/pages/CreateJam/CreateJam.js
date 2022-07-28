@@ -2,7 +2,7 @@ import { useState, useContext, useRef, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
-import { DatePicker } from "@material-ui/pickers";
+import { JamContext } from "../../context/jams.context";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import SearchResults from "../../components/SearchResults/SearchResults";
 
@@ -18,6 +18,9 @@ import Box from "@mui/material/Box";
 import Autocomplete from "@mui/material/Autocomplete";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import JamDatePicker from "../../components/DatePicker";
 
 const API_URL = "http://localhost:5005";
 
@@ -25,7 +28,8 @@ function CreateJam() {
   const navigate = useNavigate();
 
   const debounceRef = useRef();
-  const { searchPlacesByTerm, places,user } = useContext(AuthContext);
+  const { setAllJams } = useContext(JamContext);
+  const { searchPlacesByTerm, places, user } = useContext(AuthContext);
   const musicalGenre = [
     { value: "Jazz", label: "Jazz" },
     { value: "Funk", label: "Funk" },
@@ -37,7 +41,6 @@ function CreateJam() {
     { value: "Other", label: "Other" },
     { value: "All kind", label: "All kind" },
   ];
-  
   const [search, setSearch] = useState("");
   const [name, setName] = useState("");
   const [date, setDate] = useState(new Date(Date.now));
@@ -45,7 +48,7 @@ function CreateJam() {
   const [limit, setLimit] = useState(false);
   const [categories, setCategories] = useState([]);
   const [placeList, setPlaceList] = useState([]);
-  const [locationSelected,setLocationSelected]=useState('')
+  const [locationSelected, setLocationSelected] = useState("");
 
   const animatedComponents = makeAnimated();
 
@@ -63,12 +66,9 @@ function CreateJam() {
     for (const place of places) {
       objetoBlaise.push({ label: place.place_name_es, center: place.center });
     }
-    setPlaceList(objetoBlaise)
+    setPlaceList(objetoBlaise);
   };
-  const handlerSelect=(event,values)=>{
-    setLocationSelected(values)
-  }
-console.log(locationSelected)
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const requestBody = {
@@ -76,20 +76,31 @@ console.log(locationSelected)
       date,
       description,
       limit,
-      location:locationSelected,
+      location: locationSelected,
       categories,
       userId: user._id,
     };
-    console.log(requestBody)
-    axios.post(`${API_URL}/api/jams`, requestBody).then(() => {
-      setName("");
-      setDate(new Date(Date.now));
-      setDescription("");
-      setLimit(false);
-      setCategories([]);
-      navigate("/");
-    });
+    axios
+      .post(`${API_URL}/api/jams`, requestBody)
+      .then(() => {
+        setName("");
+        setDate(new Date(Date.now));
+        setDescription("");
+        setLimit(false);
+        setCategories([]);
+        navigate("/jams");
+      })
+      .then(() => {
+        axios.get(`${API_URL}/api/jams`).then((jams) => {
+          console.log(jams);
+          setAllJams(jams.data);
+        });
+      });
   };
+  const handlerSelect = (event, values) => {
+    setLocationSelected(values);
+  };
+
   useEffect(() => {
     if (search.length > 0) {
       onQueryChange(search);
@@ -99,9 +110,13 @@ console.log(locationSelected)
     handlerPlaces();
   }, [places]);
 
-  if(placeList.length===0){
+  if (placeList.length === 0) {
     return (
-      <Container component="main" maxWidth="xs" sx={{ bgcolor: "primary.light" }}>
+      <Container
+        component="main"
+        maxWidth="xs"
+        sx={{ bgcolor: "primary.light" }}
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -114,7 +129,12 @@ console.log(locationSelected)
           <Typography component="h1" variant="h5">
             Create a new Jam
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -143,8 +163,7 @@ console.log(locationSelected)
                   onChange={(e) => setSearch(e.target.value)}
                 />
               </Grid>
-              
-  
+
               <Grid item xs={12}>
                 <TextField
                   required
@@ -178,99 +197,187 @@ console.log(locationSelected)
             </Button>
           </Box>
         </Box>
-      </Container>)
-  }else{
-  return (
-    <Container component="main" maxWidth="xs" sx={{ bgcolor: "primary.light" }}>
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
+      </Container>
+    );
+  } else {
+    return (
+      <Container
+        component="main"
+        maxWidth="xs"
+        sx={{ bgcolor: "primary.light" }}
       >
-        <Typography component="h1" variant="h5">
-          Create a new Jam
-        </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                name="name"
-                required
-                fullWidth
-                id="name"
-                label="Name your jam"
-                autoFocus
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <KeyboardDatePicker value={date} onChange={setDate} />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                label="Search your place"
-                type="text"
-                name="search"
-                id="search"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={placeList}
-                onChange={handlerSelect} 
-                renderInput={(params) => (
-                  <TextField {...params} label="Address" />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="description"
-                label="Description"
-                type="text"
-                id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Select
-                closeMenuOnSelect={false}
-                components={animatedComponents}
-                defaultValue={[musicalGenre[8]]}
-                isMulti
-                options={musicalGenre}
-                onChange={(e) => setCategories(e)}
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography component="h1" variant="h5">
+            Create a new Jam
+          </Typography>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
           >
-            Submit
-          </Button>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  name="name"
+                  required
+                  fullWidth
+                  id="name"
+                  label="Name your jam"
+                  autoFocus
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <JamDatePicker
+                  value={date}
+                  set={(e) => setDate(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  label="Search your place"
+                  type="text"
+                  name="search"
+                  id="search"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={placeList}
+                  onChange={handlerSelect}
+                  renderInput={(params) => (
+                    <TextField {...params} label="Address" />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="description"
+                  label="Description"
+                  type="text"
+                  id="description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Select
+                  closeMenuOnSelect={false}
+                  components={animatedComponents}
+                  defaultValue={[musicalGenre[8]]}
+                  isMulti
+                  options={musicalGenre}
+                  onChange={(e) => setCategories(e)}
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Submit
+            </Button>
+          </Box>
         </Box>
-      </Box>
-    </Container>
-   
-  );}
-                }
+      </Container>
+    );
+  }
+}
+/*     }
+        <Container component="main" maxWidth="xs" sx={{ bgcolor: 'primary.light' }}>
+            <CssBaseline />
+            <Box
+			sx={{
+				marginTop: 8,
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
+			}}
+			>
+                <Typography component="h1" variant="h5">
+                    Create a new Jam
+                </Typography>
+                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+						<TextField
+						name="name"
+						required
+						fullWidth
+						id="name"
+						label="Name your jam"
+						autoFocus
+						value={name} 
+						onChange={(e) => setName(e.target.value)}
+						/>
+					</Grid>
+                    
+                    <Grid item xs={12}>
+                        <Autocomplete
+                        disablePortal
+                        id="combo-box-demo"
+                        options={placeList}
+                        renderInput={(params) => <TextField {...params} label="Address" />}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+						<TextField
+						required
+						fullWidth
+						name="description"
+						label="Description"
+						type="text"
+						id="description"
+						value={description} 
+						onChange={(e) => setDescription(e.target.value)}
+						/>
+					</Grid>
+                    <Grid item xs={12}>
+                        <Select
+                        closeMenuOnSelect={false}
+                        components={animatedComponents}
+                        defaultValue={[musicalGenre[8]]}
+                        isMulti
+                        options={musicalGenre}
+                        onChange={(e) => setCategories(e)}
+                        />
+					</Grid>
+                </Grid>
+                <Button
+				type="submit"
+				fullWidth
+				variant="contained"
+				sx={{ mt: 3, mb: 2 }}
+				>
+					Submit
+				</Button>
+                </Box>
+            </Box>
+        </Container>
+        
+    
+    )
+} */
 
 export default CreateJam;

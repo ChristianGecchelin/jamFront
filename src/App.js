@@ -52,8 +52,7 @@ function App() {
 		<>			
 			<ResponsiveAppBar/>
 			<Routes>
-				
-				<Route exact path="/" component={HomePage} />
+				<Route exact path="/" element={<HomePage/>} />
 				<Route
 					exact
 					path="/map"
@@ -61,7 +60,6 @@ function App() {
 						<MapPage />
 					}
 				/>
-				
 				<Route
 					exact
 					path="/createjam"

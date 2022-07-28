@@ -15,7 +15,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-const API_URL = "http://localhost:5005";
+const API_URL = process.env.REACT_APP_API_URL
 
 function EditJam () {
     const {jamId} = useParams()    

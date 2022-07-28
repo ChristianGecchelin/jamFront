@@ -16,7 +16,7 @@ import { format } from "date-fns";
 import EventIcon from '@mui/icons-material/Event';
 import Typography from '@mui/material/Typography';
 
-const API_URL = "http://localhost:5005"; 
+const API_URL = process.env.REACT_APP_API_URL
 
 function JamListPage() {
     const [jams, setjams] = useState([])

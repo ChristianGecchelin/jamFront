@@ -1,9 +1,9 @@
+import CustomCarousel from "../components/Carousel/Carousel";
+
 function HomePage() {
   return (
-    <div>
-      <h1>Jam Sessions</h1>
-      <h3>Don't be shy, come to play with us</h3>
-    </div>
+    <>
+    </>
   );
 }
 

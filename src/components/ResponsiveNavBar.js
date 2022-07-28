@@ -231,7 +231,7 @@ const ResponsiveAppBar = () => {
                     >
                         JAMME FIVE
                     </Typography>
-    
+
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                         size="large"
@@ -306,7 +306,7 @@ const ResponsiveAppBar = () => {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        <LoginIcon/>
+                        <LoginIcon sx={{color:'white'}}/>
                         </IconButton>
                         </Tooltip>
                         <Menu

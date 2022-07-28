@@ -67,7 +67,7 @@ function EditJam () {
     }
 
     return (
-        <Container component="main" maxWidth="xs" sx={{ bgcolor: 'primary.light' }}>
+        <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
 			sx={{

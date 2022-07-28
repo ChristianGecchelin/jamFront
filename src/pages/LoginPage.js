@@ -38,7 +38,7 @@ function LoginPage(props) {
 	};
 
 	return (
-		<Container component="main" maxWidth="xs" sx={{ bgcolor: 'primary.light' }}>
+		<Container component="main" maxWidth="xs" >
 			<CssBaseline />
 			<Box
 			sx={{
@@ -48,7 +48,7 @@ function LoginPage(props) {
 				alignItems: 'center',
 			}}
 			>
-			<Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+			<Avatar sx={{ m: 1}}>
 				<LockOpenOutlinedIcon />
 			</Avatar>
 			<Typography component="h1" variant="h5">

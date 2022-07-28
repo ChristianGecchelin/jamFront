@@ -5,7 +5,7 @@ import { useState, useContext, useEffect} from "react";
 import {AuthContext} from '../../context/auth.context'
 import ButtonGoToDetails from '../ButtonGoToDetails/ButtonGoToDetails';
 import ButtonOut from '../ButtonOut/ButtonOut';
-
+import ButtonIn from '../ButtonIn/ButtonIn'; 
 //Material UI
 import {Paper, Divider, Box, List,ListItem,ListItemText,Typography   } from '@mui/material';
 import { Stack } from 'react-bootstrap';
@@ -29,7 +29,7 @@ function ProfileJamList (props) {
         <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
             The jams I've created
         </Typography>
-        <List sx={{ width: '60%', maxWidth: 700, bgcolor: 'background.paper' }}>
+        <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
             {createdJams.map((jam) => (
             <>
             <ListItem
@@ -39,9 +39,6 @@ function ProfileJamList (props) {
             }
             >
             <ListItemText primary={`${jam.name} on ${jam.date}`} />
-            {jam.host &&
-                <ListItemText primary={`Organized by: ${jam.host.username}`} />
-            }
             </ListItem>
             <Divider/>
             </>
@@ -52,22 +49,18 @@ function ProfileJamList (props) {
         <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
             The jams I've registered
         </Typography>
-        <List sx={{ width: '60%', maxWidth: 700, bgcolor: 'background.paper' }}>
+        <List sx={{ width: '100%', maxWidth: 700, bgcolor: 'background.paper' }}>
             {registeredJams.map((jam) => (
             <>
             <ListItem
             key={jam._id}
-            secondaryAction={
-                <Stack spacing={2} direction='row'>
-                    <ButtonGoToDetails jamId={jam._id}/>
-                </Stack>
-                
-            }
             >
             <ListItemText primary={`${jam.name} on ${jam.date}`} />
-            {jam.host &&
-                <ListItemText primary={`Organized by: ${jam.host.username}`} />
-            }
+            <Stack spacing={1} direction='row'>
+                    <ButtonGoToDetails jamId={jam._id}/>
+                    <ButtonIn jamId={jam._id} user={user}/>
+                    <ButtonOut jamId={jam._id} user={user}/>
+                </Stack>
             </ListItem>
             <Divider/>
             </>

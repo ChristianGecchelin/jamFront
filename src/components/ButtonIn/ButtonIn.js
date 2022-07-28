@@ -18,7 +18,7 @@ const style = {
     p: 4,
     };
 
-export default function RegisterModal(props) {
+export default function ButtonIn(props) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => {
         setOpen(true);}

@@ -4,6 +4,7 @@ function ButtonGoToDetails (props) {
     const {jamId} = props
     return (
             <Button 
+            size="small"
             variant="contained"
             component={Link}
             href={`/jams/${jamId}`}

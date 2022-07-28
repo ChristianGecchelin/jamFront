@@ -23,13 +23,14 @@ import { Button } from "@mui/material";
 const API_URL = "http://localhost:5005";
 
 function JamDetailPage () {
-
+    const { user } = useContext(AuthContext)  
     const {jamId} = useParams()  
     const [jam, setJam] = useState([])
     const [host, setHost] = useState([])
     const [musicians, setMusicians] = useState([])
     const [date,setDate] = useState("")
     const [categories,setCategories] = useState([])
+    const [currentUser,setCurrentUser] = useState([])
     const navigate = useNavigate()
     const {setAllJams} = useContext(JamContext)
 
@@ -49,8 +50,8 @@ function JamDetailPage () {
             .catch(err=>console.log(err))
         
         },[])
-
-    return(
+    
+        return(
             <>
             <Box sx={{ width: '100%', maxWidth: 500 }}>
                 <Stack direction="row" spacing={2} id="stackDate">
@@ -120,11 +121,6 @@ function JamDetailPage () {
                         </Typography>
                         </>
                     }
-                    <Button onClick={()=>{
-                        deleteJam(jam._id)
-                        navigate('/jams')
-                    }}>Delete</Button>
-                    <Button>Edit</Button>
                 </Paper>
             </Box>
 
@@ -136,7 +132,8 @@ function JamDetailPage () {
         
         </>
     )
+    }
     
-}
+
 
 export default JamDetailPage

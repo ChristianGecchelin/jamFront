@@ -16,7 +16,8 @@ function JamFilterByDate(props) {
     return(
         <TextField
         type="date"
-        name="limitDate"
+        name="Date"
+        label=""
         value={date} 
         onChange={handleDate}/>
     )

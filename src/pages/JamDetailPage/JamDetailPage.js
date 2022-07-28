@@ -1,9 +1,10 @@
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams,useNavigate, Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from '../../context/auth.context';
 import axios from 'axios';
 import { format, setDate } from "date-fns";
-
+import { deleteJam } from "../../services/jams.services";
+import { JamContext } from "../../context/jams.context";
 
 //MATERIAL UI
 import Box from '@mui/material/Box';
@@ -17,20 +18,24 @@ import AvatarGroup from '@mui/material/AvatarGroup';
 import LockIcon from '@mui/icons-material/Lock';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import EventIcon from '@mui/icons-material/Event';
+import { Button } from "@mui/material";
 
 const API_URL = "http://localhost:5005";
 
 function JamDetailPage () {
+    const { user } = useContext(AuthContext)  
     const {jamId} = useParams()  
     const [jam, setJam] = useState([])
     const [host, setHost] = useState([])
     const [musicians, setMusicians] = useState([])
     const [date,setDate] = useState("")
     const [categories,setCategories] = useState([])
+    const [currentUser,setCurrentUser] = useState([])
+    const navigate = useNavigate()
+    const {setAllJams} = useContext(JamContext)
 
     useEffect(()=>{
-        const getJam = async (jamId) =>{
-            await axios
+            axios
             .get(`${API_URL}/api/jams/${jamId}`)
             .then((response)=>{
             const jamFound = response.data
@@ -43,11 +48,10 @@ function JamDetailPage () {
             setDate(formatedDate)
             })
             .catch(err=>console.log(err))
-        }
-        getJam(jamId)
-    },[])
+        
+        },[])
     
-    return(
+        return(
             <>
             <Box sx={{ width: '100%', maxWidth: 500 }}>
                 <Stack direction="row" spacing={2} id="stackDate">
@@ -128,7 +132,8 @@ function JamDetailPage () {
         
         </>
     )
+    }
     
-}
+
 
 export default JamDetailPage

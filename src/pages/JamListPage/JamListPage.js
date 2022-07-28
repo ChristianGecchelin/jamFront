@@ -1,4 +1,4 @@
-import { List, ListItem, ListItemText } from "@mui/material";
+import { List, ListItem, ListItemText,Stack } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react"; // <== IMPORT
 import { AuthContext } from "../../context/auth.context";
@@ -8,15 +8,21 @@ import SimplePopper from "../../components/Popper";
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import { JamContext } from "../../context/jams.context";
+import { searchJamsByDate } from '../../services/jams.services';
+import ButtonOut from '../../components/ButtonOut/ButtonOut';
+import ButtonGoToDetails from '../../components/ButtonGoToDetails/ButtonGoToDetails';
+import ButtonIn from '../../components/ButtonIn/ButtonIn';
 const API_URL = "http://localhost:5005";
+
 
 function JamListPage(props) {
   const { jamsForHome, setJamsForHome, searchDate,setSearchDate } = props;
   const [jams, setjams] = useState([]);
+  const [currentUser,setCurrentUser] = useState([])
   const [cloneJams, setCloneJams] = useState(jams);
   const { user } = useContext(AuthContext);
-  const { allJams } = useContext(JamContext);
-  const searchJamsByDate = (date) => {
+  const { allJams,setAllJams } = useContext(JamContext);
+  /* const searchJamsByDate = (date) => {
     //Convert the date without the hours
     let convertedDate = date.setHours(0, 0, 0, 0);
     const updatedJams = cloneJams.filter((cloneJam) => {
@@ -31,7 +37,7 @@ function JamListPage(props) {
     setjams(updatedJams);
     if(setJamsForHome){
         setJamsForHome(updatedJams);}
-  };
+  }; */
 
   useEffect(() => {
     setjams(jamsForHome);
@@ -49,28 +55,53 @@ function JamListPage(props) {
     setjams(allJams);
     setCloneJams(allJams);
   }, [allJams]);
-  console.log(jams)
+
+  useEffect(()=>{
+    axios.get(`${API_URL}/api/jams`)
+    .then((allJams)=>{
+        setjams(allJams.data)
+    })
+    .catch(err=>console.log(err))
+},[])
 
   return (
-    <Box>
-      <JamFilterByDate searchJams={searchJamsByDate} 
-            setSearchDateHome={setSearchDate}
-            searchDateHome={searchDate}/>
-      <List sx={{ width: "100%", maxWidth: 700, bgcolor: "background.paper" }}>
+    <Box 
+    sx={{ width: '90%',m:2}}
+    display='flex'
+    flexDirection='row'
+    justifyContent='space-between'>
+    <Box sx={{ width: '10%'}}>
+    <JamFilterByDate searchJams={(e)=>{
+        setjams(searchJamsByDate(e,cloneJams))
+        
+    }}
+    setSearchDateHome={setSearchDate}
+    searchDateHome={searchDate}/>
+    </Box>
+    <Box sx={{ width: '80%',}}>
+    <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
         {jams.map((jam) => (
-          <>
-            <ListItem
-              key={jam._id}
-              secondaryAction={<SimplePopper jam={jam} />}
-            >
-              <ListItemText primary={`${jam.name}        ${jam.date}`} />
-              {jam.host && <ListItemText primary={`${jam.host.username}`} />}
-            </ListItem>
-            <Divider />
-          </>
+        <>
+        <ListItem
+        key={jam._id}
+        secondaryAction={
+            <Stack direction="row">
+            <ButtonGoToDetails jamId={jam._id}/>
+            <ButtonIn jamId={jam._id} user={user}/>
+            <ButtonOut jamId={jam._id} user={user}/>
+            </Stack>
+        }
+        >
+        <ListItemText primary={`${jam.name}        ${jam.date}`} />
+        </ListItem>
+        <Divider/>
+        </>
         ))}
-      </List>
+    </List>
+    </Box>
     </Box>
   );
-}
+
+
+
 export default JamListPage;

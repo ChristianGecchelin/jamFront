@@ -16,12 +16,12 @@ if(!navigator.geolocation){
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <AuthProviderWrapper>
+    <AuthProviderWrapper>
         <JamProviderWrapper>
         <App />
         </JamProviderWrapper>
-      </AuthProviderWrapper>
-    </Router>
+        </AuthProviderWrapper>
+    </Router>    
   </React.StrictMode>,
   document.getElementById("root")
 );

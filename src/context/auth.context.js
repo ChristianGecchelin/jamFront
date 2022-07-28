@@ -143,6 +143,6 @@ function AuthProviderWrapper(props) {
       {props.children}
     </AuthContext.Provider>
   );
-}
+	};
 
 export { AuthProviderWrapper, AuthContext };

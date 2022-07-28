@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
-import {DatePicker} from '@material-ui/pickers';
+import { TextField } from "@mui/material"
 
-function JamDatePicker() {
-    const [selectedDate, handleDateChange] = useState(new Date());
+function JamDatePicker(props) {
+    const {value,set} = props
+
     return(
-        <DatePicker value={selectedDate} onChange={handleDateChange} />
+        <TextField
+        type="date"
+        name="limitDate"
+        value={value}
+        onChange={set}/>        
     )
 }
 

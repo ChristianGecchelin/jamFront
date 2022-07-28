@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 import { JamContext } from "../../context/jams.context";
 import "./HomePage.css";
 import section1Image from "../../assets/home1.jpeg";
+import { AuthContext } from "../../context/auth.context";
 function HomePage() {
   const { allJams } = useContext(JamContext);
   const [jamsForHome, setJamsForHome] = useState(allJams);
   const [searchDate, setSearchDate] = useState(new Date());
+  const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
   useEffect(() => {
     setJamsForHome(allJams);
   }, [allJams]);
@@ -18,9 +20,12 @@ function HomePage() {
         <h1>Jam Sessions</h1>
         <h3>Don't be shy, come to play with us</h3>
         <img src={section1Image} alt="" style={{ opacity: 0.91 }} />
-        <Link to="/signup" className="button-awesome">
-          Signup
-        </Link>
+        {!isLoggedIn && (
+          <Link to="/signup" className="button-awesome">
+            Signup
+          </Link>
+        )}
+
         <a className="button-awesome" href="#section2">
           Jams
         </a>

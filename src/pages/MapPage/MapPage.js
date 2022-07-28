@@ -106,9 +106,8 @@ const MapPage = (props) => {
           .setLngLat(map.getCenter())
           .setPopup(myLocationPopup)
           .addTo(map);
-    }
-    }
-  , [userLocation]);
+    }}
+    , [isLoadingLocation]);
 
   useEffect(() => {
     getAllJams();

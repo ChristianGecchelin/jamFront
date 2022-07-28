@@ -58,7 +58,7 @@ function JamListPage(props) {
 
   useEffect(() => {
     axios
-      .get(`${API_URL}/api/jams`)
+      .get(`${API_URL}/jams`)
       .then((allJams) => {
         setjams(allJams.data);
       })

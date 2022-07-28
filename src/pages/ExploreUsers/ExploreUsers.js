@@ -39,12 +39,11 @@ const ExploreUsers = () => {
     
 
       if (param.instrument && param.instrument.length>0) {
-        console.log(param.instrument.length>0)
-        debugger
+        
         usersFilteredByInstrument=param.instruments.map((instrument)=>{
-            debugger
+            
             for (let i = 0; i < usersFilteredByName.length; i++) {
-                debugger
+                
                return (usersFilteredByName[i].instruments.value===(instrument.value))
               }
           })
@@ -73,7 +72,6 @@ const ExploreUsers = () => {
   }, []);
 
   useEffect(()=>{
-    console.log(param)
     filterUsers()
   },[param])
   return (

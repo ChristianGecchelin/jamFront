@@ -1,4 +1,4 @@
-import React, {
+import {
   useRef,
   useEffect,
   useState,
@@ -22,7 +22,6 @@ const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 mapboxgl.accessToken = MAPBOX_TOKEN;
 
 const MapPage = (props) => {
-  console.log(Object.keys(props).length);
   if (Object.keys(props).length > 0) {
     var { jamsForHome, setJamsForHome, searchDate, setSearchDate } = props;
   }
@@ -33,9 +32,11 @@ const MapPage = (props) => {
   const mapDiv = useRef(null);
   const [jams, setjams] = useState(allJams);
   const [cloneJams, setCloneJams] = useState(jams);
-  const searchJamsByDate = (date) => {
+  const [todayDate, setTodayDate] = useState(new Date());
+
+  const searchJamsByDate = (date, cloneJams) => {
     //Convert the date without the hours
-    let convertedDate = date.setHours(0, 0, 0, 0);
+    let convertedDate = new Date(date).setHours(0, 0, 0, 0);
     const updatedJams = cloneJams.filter((cloneJam) => {
       if (convertedDate === null) {
         return cloneJam;
@@ -55,14 +56,18 @@ const MapPage = (props) => {
     setjams(allJams);
     if (setJamsForHome) {
       setJamsForHome(allJams);
+      setSearchDate(new Date());
     }
-    setSearchDate(new Date());
+    setTodayDate(todayDate);
   };
+
   const createMarkersJams = (array) => {
+    debugger;
     markers.forEach((marker) => marker.remove());
-    const newMarkers = [];
+    let newMarkers = [];
     setMarkers(newMarkers);
     for (const jam of array) {
+      debugger;
       if (typeof jam.location.center !== undefined) {
         const [lng, lat] = jam.location.center;
         const myLocationPopup = new Popup().setHTML(
@@ -80,6 +85,7 @@ const MapPage = (props) => {
         newMarkers.push(newMarker);
       }
     }
+    setMarkers(newMarkers);
   };
 
   useLayoutEffect(() => {
@@ -119,20 +125,30 @@ const MapPage = (props) => {
   }, [jams]);
 
   useEffect(() => {
-    setjams(jamsForHome);
+    if (jamsForHome) {
+      setjams(jamsForHome);
+    }
   }, [jamsForHome]);
 
   if (isLoadingLocation) {
     return <Loading />;
   }
   return (
-    <div className="mapa-container" ref={mapDiv}>
+    <div
+      className={`${
+        Object.keys(props).length > 0 ? "mapa-container" : "mapa-container2"
+      }  `}
+      ref={mapDiv}
+    >
       <BtnMyLocation />
       <JamFilterByDate
+        todayDate={todayDate}
         setSearchDateHome={setSearchDate}
         searchDateHome={searchDate}
         style={{ zIndex: 500, width: "500px", backgroundColor: "white," }}
-        searchJams={searchJamsByDate}
+        searchJams={(e) => {
+          searchJamsByDate(e, cloneJams);
+        }}
         className="MuiFormControl-root"
       />
       {/*    <SearchBar

@@ -2,8 +2,9 @@ import "./App.css";
 
 import {useContext} from 'react'
 import { Route, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import MapPage from './pages/MapPage';
+import Navbar from './components/Navbar';
+import HomePage from './pages/HomePage/HomePage';
+import MapPage from './pages/MapPage/MapPage';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import PrivateRoute from './components/PrivateRoute'; 
@@ -46,14 +47,14 @@ const customTheme = createTheme({
 });
 
 function App() {
-	const {user} = useContext(AuthContext)
-	
-	return (
-		<>			
+  const { user } = useContext(AuthContext);
+
+  return (
+    <>			
 			<ResponsiveAppBar/>
 			<Routes>
 				
-				<Route exact path="/" component={HomePage} />
+				<Route exact path="/" element={<HomePage/>} />
 				<Route
 					exact
 					path="/map"
@@ -72,15 +73,41 @@ function App() {
 					}
 				/>
 
-        <Route
-          exact
-          path="/editjam/:jamId"
-          element={
-            <PrivateRoute>
-              <EditJam />
-            </PrivateRoute>
-          }
-        />
+				<Route
+					exact
+					path="/editjam/:jamId"
+					element={
+						<PrivateRoute>
+							<EditJam />
+						</PrivateRoute>	
+					}
+				/>
+
+				<Route
+					exact
+					path="/jams"
+					element={
+							<JamListPage />
+					}
+				/>
+
+				<Route
+					exact
+					path="/jams/:jamId"
+					element={
+						<JamDetailPage />
+					}
+				/>
+				
+				<Route
+					exact
+					path="/signup"
+					element={
+						<AnonRoute>
+							<SignupPage />
+						</AnonRoute>
+					}
+				/>
 
 				<Route
 					exact

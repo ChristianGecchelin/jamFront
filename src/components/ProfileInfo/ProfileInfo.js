@@ -37,7 +37,6 @@ function ProfileInfo(props){
     };
 
     const handleClose = () => {
-        console.log('CLICKED AWAY')
     setOpen(false);
     };
 

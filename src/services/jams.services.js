@@ -14,7 +14,6 @@ async function registerToJam(jamId,user) {
 			musicians.push(user)
 			axios.put(`${API_URL}/jams/${jamId}`,{musicians})
 			.then((response)=>{
-				console.log(response.data)
 				const modifiedJam = response.data
 				axios.get(`${API_URL}/users/${user._id}`)
 				.then((currentUser)=>{
@@ -40,9 +39,7 @@ function unregisterToJam(jamId,user){
 			axios.get(`${API_URL}/users/${user._id}`)
 			.then((currentUser)=>{
 				const events = currentUser.data.eventsSubscribed
-				console.log(events)
 				let newEventsList = events.filter(event=>event._id!==modifiedJamId)
-				console.log(newEventsList)
 				axios.put(`${API_URL}/users/${user._id}`,{eventsSubscribed:newEventsList})
 				.then((response)=>console.log(response.data))
 			})
@@ -58,7 +55,8 @@ function deleteJam(jamId){
 
 const searchJamsByDate = (date,cloneJams) => {
 	//Convert the date without the hours
-	let convertedDate = date.setHours(0,0,0,0)
+	
+	let convertedDate = new Date(date).setHours(0,0,0,0)
 	const updatedJams = cloneJams.filter((cloneJam)=>{
 		if(convertedDate===null){
 			return cloneJam

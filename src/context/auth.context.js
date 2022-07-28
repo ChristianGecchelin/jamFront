@@ -9,6 +9,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 const AuthContext = React.createContext();
 
 function AuthProviderWrapper(props) {
+  
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -86,7 +87,6 @@ function AuthProviderWrapper(props) {
       },
     });
     setIsLoadingPlaces(false);
-    console.log(resp.data.features.center)
     setPlaces(resp.data.features);
     return resp.data;
   };
@@ -97,7 +97,6 @@ function AuthProviderWrapper(props) {
 
   useEffect(() => {
     getUserLocation().then((lngLat) => {
-      console.log(lngLat);
       setUserLocation(lngLat);
       setIsLoadingLocation(false);
     });
@@ -108,7 +107,6 @@ function AuthProviderWrapper(props) {
     const newMarkers = [];
     setMarkers(newMarkers)
     for (const place of places) {
-      console.log(place.center)
       const [lng, lat] = place.center;
       const popup = new Popup().setHTML(
         `<h6>${place.text_es}</h6><p>${place.place_name_es}</p>`
@@ -143,6 +141,6 @@ function AuthProviderWrapper(props) {
       {props.children}
     </AuthContext.Provider>
   );
-	};
+}
 
 export { AuthProviderWrapper, AuthContext };

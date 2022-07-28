@@ -26,7 +26,6 @@ const NewPlace = () => {
       userId,
       address,
     };
-    console.log(requestBody);
     try {
       await axios.post(`${API_URL}/places`, requestBody).then((response) => {
         // Reset the state

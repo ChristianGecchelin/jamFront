@@ -16,10 +16,8 @@ function JamFilterByCategory (props) {
     {value:'All kind',label:'All kind'},]
     const [searchCategories,setCategories] = useState(musicalGenre[8])
     const handleCategories = (e) => {
-        console.log('EVENT',e)
         searchJams(e)
         setCategories(e)
-        console.log(searchCategories)
     }
     const animatedComponents = makeAnimated();
 

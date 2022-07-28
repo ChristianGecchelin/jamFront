@@ -80,7 +80,7 @@ const MapPage = (props) => {
           <a href="${`/jams/${jam._id}`}"> Details </button>
         `
         );
-        const newMarker = new Marker()
+        const newMarker = new Marker({color: "red"})
           .setLngLat([lng, lat])
           .setPopup(myLocationPopup)
           .addTo(map);

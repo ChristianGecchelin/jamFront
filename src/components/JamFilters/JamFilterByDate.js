@@ -24,6 +24,13 @@ function JamFilterByDate(props) {
     }
   }, [searchDateHome]);
 
+  console.log(todayDate)
+  useEffect(() => {
+    debugger
+    if(todayDate){
+      setDate(todayDate);
+    }
+  }, [todayDate]);
  /*  return <KeyboardDatePicker value={searchDate} onChange={handleDate} />; */
     return(
         <TextField

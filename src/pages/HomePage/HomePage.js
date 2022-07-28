@@ -20,11 +20,14 @@ function HomePage() {
         <h1>Jam Sessions</h1>
         <h3>Don't be shy, come to play with us</h3>
         <img src={section1Image} alt="" style={{ opacity: 0.91 }} />
-        {!isLoggedIn && (
+        {!isLoggedIn ? 
           <Link to="/signup" className="button-awesome">
             Signup
+          </Link>:
+          <Link to="/map" className="button-awesome">
+            Map
           </Link>
-        )}
+        }
 
         <a className="button-awesome" href="#section2">
           Jams

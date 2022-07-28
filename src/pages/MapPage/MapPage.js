@@ -90,7 +90,6 @@ const MapPage = (props) => {
   };
 
   useLayoutEffect(() => {
-    if(user){
       if (!isLoadingLocation) {
         const map = new Map({
           container: mapDiv.current,
@@ -101,7 +100,7 @@ const MapPage = (props) => {
         setMap(map);
         setIsMapReady(true);
         const myLocationPopup = new Popup().setHTML(
-          `<h4>${user.username}</h4><p>Aquí estoy</p>`
+          `<h4>You are here</h4>`
         );
         new Marker({color: "#5a2065"})
           .setLngLat(map.getCenter())
@@ -109,7 +108,7 @@ const MapPage = (props) => {
           .addTo(map);
     }
     }
-  }, [user]);
+  , [userLocation]);
 
   useEffect(() => {
     getAllJams();

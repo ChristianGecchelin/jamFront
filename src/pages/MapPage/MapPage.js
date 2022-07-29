@@ -5,7 +5,7 @@ import {
   useContext,
   useLayoutEffect,
 } from "react";
-import mapboxgl, { Map, Marker, Popup } from "!mapbox-gl";
+import mapboxgl, { Map, Marker, Popup } from "mapbox-gl";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
 import { JamContext } from "../../context/jams.context";

@@ -18,7 +18,7 @@ function HomePage() {
     <div>
       <section className="section-principal">
         <h1>Jam Sessions</h1>
-        <h3>Don't be shy, come to play with us</h3>
+        <h3>Don't be shy, come play with us</h3>
         <img src={section1Image} alt="" style={{ opacity: 0.91 }} />
         {!isLoggedIn ? 
           <Link to="/signup" className="button-awesome">
